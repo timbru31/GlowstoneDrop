@@ -1,0 +1,84 @@
+name: GlowstoneDrop
+main: de.xghostkillerx.glowstonedrop.GlowstoneDrop
+version: 1.3.2
+author: xGhOsTkiLLeRx
+description: Get a glowstone block back!
+website: http://bit.ly/oW6iR1
+website: http://bit.ly/rcN2QB
+commands:
+  glowstonedrop:
+    description: Handles all the GlowstoneDrop commands
+    usage: /glowstonedrop help or /glowdrop help - to see the help
+    aliases: [glowdrop]
+permissions:
+  glowstonedrop.*:
+    description: Gives access to all GlowstoneDrop permissions
+    children:
+     glowstonedrop.reload: true
+     glowstonedrop.use.*: true
+     glowstonedrop.enable.*: true
+     glowstonedrop.disable.*: true
+     glowstonedrop.help: true
+     glowstonedrop.set.*: true
+  glowstonedrop.use.*:
+    description: Gives access to all GlowstoneDrop uses
+    children:
+     glowstonedrop.use.nether: true
+     glowstonedrop.use.normal: true
+     glowstonedrop.use.skyland: true
+  glowstonedrop.use.normal:
+    description: Allows you to use GlowstoneDrop in normal worlds
+    default: op
+  glowstonedrop.use.nether:
+    description: Allows you to use GlowstoneDrop in the nether
+    default: op
+  glowstonedrop.use.skyland:
+    description: Allows you to use GlowstoneDrop in the skylands
+    default: op
+  glowstonedrop.set.*:
+    description: Gives access to all GlowstoneDrop set commands
+    children:
+     glowstonedrop.set.normal: true
+     glowstonedrop.set.nether: true
+     glowstonedrop.set.skyland: true
+     glowstonedrop.set.all: true
+  glowstonedrop.set.normal:
+    description: Allows you to set the drop for normal
+    default: op
+  glowstonedrop.set.nether:
+    description: Allows you to set the drop for nether
+    default: op
+  glowstonedrop.set.skyland:
+    description: Allows you to set the drop for skyland
+    default: op
+  glowstonedrop.set.all:
+    description: Allows you to set the drop for all worlds
+    default: op
+  glowstonedrop.help:
+    description: Allows you to see the help
+    default: op
+  glowstonedrop.reload:
+    description: Allows you to reload the config
+    default: op
+  glowstonedrop.enable.*:
+    description: Gives access to all GlowstoneDrop enable commands
+    children:
+     glowstonedrop.enable.permissions: true
+     glowstonedrop.enable.messages: true
+  glowstonedrop.disable.*:
+    description: Gives access to all GlowstoneDrop disable commands
+    children:
+     glowstonedrop.disable.permissions: true
+     glowstonedrop.disable.messages: true
+  glowstonedrop.enable.permissions:
+    description: Allows you to enable permissions
+    default: op
+  glowstonedrop.disable.permissions:
+    description: Allows you to disable permissions
+    default: op
+  glowstonedrop.enable.messages:
+    description: Allows you to enable messages
+    default: op
+  glowstonedrop.disable.messages:
+    description: Allows you to disable messages
+    default: op

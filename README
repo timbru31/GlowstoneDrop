@@ -1,0 +1,105 @@
+Hi,
+
+this is the README of GlowstoneDrop
+Thanks to XxFuNxX for the original plugin!
+Thanks for using!
+For support visit the old forum thread: http://bit.ly/oW6iR1
+or the new dev.bukkit.org page: http://bit.ly/rcN2QB
+
+This plugin sends usage statistics! If you wish to disable the usage stats, look at /plugins/stats/config.yml!
+This plugin is released under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)
+
+
+Standard config:
+
+# For help please refer to http://bit.ly/oW6iR1 or http://bit.ly/rcN2QB
+configuration:
+  permissions: true
+  messages: true
+worlds:
+  normal: block
+  nether: dust
+  skyland: block
+
+Commands & Permissions (if no permissions system is detected, only OPs are able to use the commands!)
+Only bukkit's permissions system is supported! If a command is typed wrong, 
+it will return, that you should type /glowstonedrop help or /glowdrop help for more information!
+
+glowstonedrop.use.normal
+Description: Needed to use the plugin in the normal worlds! (Otherwise you get dust!)
+
+glowstonedrop.use.nether
+Description: Needed to use the plugin in the nether worlds! (Otherwise you get dust!)
+
+glowstonedrop.use.skyland
+Description: Needed to use the plugin in the skland worlds! (Otherwise you get dust!)
+
+/glowstonedrop reload
+/glowdrop reload
+Node: glowstonedrop.reload
+Description: Reloads the config
+
+/glowstonedrop help
+/glowdrop help
+Node: glowstonedrop.help
+Description: Displays the help
+
+/glowstonedrop enable permissions
+/glowdrop enable permissions
+Node: glowstonedrop.enable.permissions
+Description: Enables the permissions! (Only OPs or player with the permission can use the plugin!)
+
+/glowstonedrop disable permissions
+/glowdrop disable permissions
+Node: glowstonedrop.disable.permissions
+Description: Disables the permissions! ALL players can use the plugin!
+
+/glowstonedrop enable messages
+/glowdrop enable messages
+Node: glowstonedrop.enable.messages
+Description: Enables the messages
+
+/glowstonedrop disable messages
+/glowdrop disable messages
+Node: glowstonedrop.disable.messages
+Description: Disables the messages
+
+/glowstonedrop set normal dust
+/glowdrop set normal dust
+Node: glowstonedrop.set.normal
+Description: Changes the drop in normal worlds to dust
+
+/glowstonedrop set normal block
+/glowdrop set normal block
+Node: glowstonedrop.set.normal
+Description: Changes the drop in normal worlds to blocks
+
+/glowstonedrop set nether dust
+/glowdrop set nether dust
+Node: glowstonedrop.set.nether
+Description: Changes the drop in nether worlds to dust
+
+/glowstonedrop set nether block
+/glowdrop set nether block
+Node: glowstonedrop.set.nether
+Description: Changes the drop in nether worlds to blocks
+
+/glowstonedrop set skyland dust
+/glowdrop set skyland dust
+Node: glowstonedrop.set.skyland
+Description: Changes the drop in skyland worlds to dust
+
+/glowstonedrop set skyland block
+/glowdrop set skyland block
+Node: glowstonedrop.set.skyland
+Description: Changes the drop in skyland worlds to blocks
+
+/glowstonedrop set all dust
+/glowdrop set all dust
+Node: glowstonedrop.set.all
+Description: Changes the drop in all worlds to dust
+
+/glowstonedrop set all block
+/glowdrop set all block
+Node: glowstonedrop.set.all
+Description: Changes the drop in all worlds to blocks
