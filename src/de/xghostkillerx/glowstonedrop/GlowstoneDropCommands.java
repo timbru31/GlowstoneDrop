@@ -298,7 +298,7 @@ public class GlowstoneDropCommands {
 		return true;
 	}
 	
-	// Reload the config with /glowstonedrop reload or /glowdrop help
+	// Reload the config with /glowstonedrop reload or /glowdrop reload
 	private boolean GlowstoneDropReload(CommandSender sender, String[] args) {
 		PluginDescriptionFile pdfFile = plugin.getDescription();
 		plugin.reloadConfig();
@@ -335,7 +335,7 @@ public class GlowstoneDropCommands {
 		return true;
 	}
 	
-	// Disable all sources with /glowstonedrop disable messages or /glowdrop disable messages
+	// Disable messages with /glowstonedrop disable messages or /glowdrop disable messages
 	private boolean GlowstoneDropDisableMessages(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.messages", false);
 		plugin.saveConfig();
