@@ -67,6 +67,11 @@ public class GlowstoneDrop extends JavaPlugin {
 		saveConfig();
 	}
 	
+	public void loadAgain() {
+		this.getConfig();
+		this.saveConfig();
+	}
+	
 	// Refer to GlowstoneDropCommands
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		GlowstoneDropCommands cmd = new GlowstoneDropCommands(this);

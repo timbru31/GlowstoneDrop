@@ -34,11 +34,11 @@ public class GlowstoneDropBlockListener extends BlockListener {
 		// Check for the pickaxes
 		if (((player.getItemInHand().getTypeId() == 270) || (player.getItemInHand().getTypeId() == 274) || (player.getItemInHand().getTypeId() == 257) || (player.getItemInHand().getTypeId() == 285) || (player.getItemInHand().getTypeId() == 278)) && event.getBlock().getTypeId() == 89) {
 			// Check for the config value permisions
-			if (plugin.config.getBoolean("configuration.permissions", true)) {
+			if (plugin.config.getBoolean("configuration.permissions") == true) {
 				// Normal
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NORMAL)) {
 					// Block
-					if (plugin.config.getString("worlds.normal", "block") != null) {
+					if (plugin.config.getString("worlds.normal").equals("block")) {
 						if (player.hasPermission("glowstonedrop.use.normal")) {
 							dropBlock(event);
 						} else {
@@ -49,7 +49,7 @@ public class GlowstoneDropBlockListener extends BlockListener {
 				// Nether
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NETHER)) {
 					// Block
-					if (plugin.config.getString("worlds.nether", "block") != null) {
+					if (plugin.config.getString("worlds.nether").equals("block")) {
 						if (player.hasPermission("glowstonedrop.use.nether")) {
 							dropBlock(event);
 						} else {
@@ -60,7 +60,7 @@ public class GlowstoneDropBlockListener extends BlockListener {
 				// Skyland
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.SKYLANDS)) {
 					// Block
-					if (plugin.config.getString("worlds.skyland", "block") != null) {
+					if (plugin.config.getString("worlds.skyland").equals("block")) {
 						if (player.hasPermission("glowstonedrop.use.skyland")) {
 							dropBlock(event);
 						} else {
@@ -70,25 +70,26 @@ public class GlowstoneDropBlockListener extends BlockListener {
 				}
 			}
 			// Without permissions -> no messages
-			if (plugin.config.getBoolean("configuration.permissions", false)) {
+			if (plugin.config.getBoolean("configuration.permissions") == false) {
 				// Normal
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NORMAL)) {
 					// Block
-					if (plugin.config.getString("worlds.normal", "block") != null) {
-						dropBlock(event);
+					if (plugin.config.getString("worlds.normal").equals("block")) {
+						event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(89, 1));
+						event.getBlock().setType(Material.AIR);
 					}
 				}
 				// Nether
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NETHER)) {
 					// Block
-					if (plugin.config.getString("worlds.nether", "block") != null) {
+					if (plugin.config.getString("worlds.nether").equals("block")){
 						dropBlock(event);
 					}
 				}
 				// Sklyland
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.SKYLANDS)) {
 					// Block
-					if (plugin.config.getString("worlds.skyland", "block") != null) {
+					if (plugin.config.getString("worlds.skyland").equals("block")) {
 						dropBlock(event);
 					}
 				}
@@ -102,7 +103,7 @@ public class GlowstoneDropBlockListener extends BlockListener {
 	}
 	// Send a message
 	public void message(Player player) {
-		if (plugin.config.getBoolean("configuration.messages", true)) {
+		if (plugin.config.getBoolean("configuration.messages") == true) {
 			player.sendMessage(ChatColor.DARK_RED + "You don't have the permission to use GlowstoneDrop! Dropping dust instead!");
 		}
 	}
