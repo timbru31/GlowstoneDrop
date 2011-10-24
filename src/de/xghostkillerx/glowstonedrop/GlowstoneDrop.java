@@ -1,6 +1,7 @@
 package de.xghostkillerx.glowstonedrop;
 
 import java.util.logging.Logger;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
@@ -28,7 +29,7 @@ public class GlowstoneDrop extends JavaPlugin {
 	
 	public static final Logger log = Logger.getLogger("Minecraft");
 	private final GlowstoneDropBlockListener blockListener = new GlowstoneDropBlockListener(this);
-	FileConfiguration config;
+	public FileConfiguration config;
 
 	// Shutdown
 	public void onDisable() {
@@ -44,10 +45,9 @@ public class GlowstoneDrop extends JavaPlugin {
 		
 		// Config
 		config = this.getConfig();
-		config.options().copyDefaults(true);
 		loadConfig();
+		getConfig().options().copyDefaults(true);
 		saveConfig();
-		
 		// Message
 		PluginDescriptionFile pdfFile = this.getDescription();
 		log.info(pdfFile.getName() + " " + pdfFile.getVersion() + " is enabled!");
@@ -68,9 +68,9 @@ public class GlowstoneDrop extends JavaPlugin {
 	}
 	
 	public void loadAgain() {
-		this.getConfig();
-		this.saveConfig();
+		reloadConfig();
 	}
+	
 	
 	// Refer to GlowstoneDropCommands
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
