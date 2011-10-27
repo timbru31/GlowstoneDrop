@@ -96,12 +96,14 @@ public class GlowstoneDropBlockListener extends BlockListener {
 			}
 		}
 	}
+	
 	// Drop the block
 	public void dropBlock(BlockBreakEvent event) {
 		event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(89, 1));
 		event.getBlock().setType(Material.AIR);
 	}
-	// Send a message
+	
+	// Sends a message
 	public void message(Player player) {
 		if (plugin.config.getBoolean("configuration.messages") == true) {
 			player.sendMessage(ChatColor.DARK_RED + "You don't have the permission to use GlowstoneDrop! Dropping dust instead!");

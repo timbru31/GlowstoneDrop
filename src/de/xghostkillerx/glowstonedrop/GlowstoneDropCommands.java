@@ -301,7 +301,7 @@ public class GlowstoneDropCommands {
 	// Reload the config with /glowstonedrop reload or /glowdrop reload
 	private boolean GlowstoneDropReload(CommandSender sender, String[] args) {
 		PluginDescriptionFile pdfFile = plugin.getDescription();
-		plugin.loadAgain();
+		plugin.loadConfigAgain();
 		sender.sendMessage(ChatColor.DARK_GREEN + "GlowstoneDrop version " + ChatColor.DARK_RED + pdfFile.getVersion() + ChatColor.DARK_GREEN + " reloaded!");
 		return true;
 	}
@@ -310,9 +310,8 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropEnablePermissions(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.permissions", true);
 		plugin.saveConfig();
-		
 		sender.sendMessage(ChatColor.DARK_GREEN + "GlowstoneDrop " + ChatColor.DARK_RED	+ "permissions " + ChatColor.DARK_GREEN	+ "enabled! Only OPs");
-		sender.sendMessage(ChatColor.DARK_GREEN + "or players with the permission the plugin!");
+		sender.sendMessage(ChatColor.DARK_GREEN + "or players with the permission can use the plugin!");
 		return true;
 	}
 	
@@ -320,7 +319,6 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropDisablePermissions(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.permissions", false);
 		plugin.saveConfig();
-		
 		sender.sendMessage(ChatColor.DARK_GREEN + "GlowstoneDrop " + ChatColor.DARK_RED + "permissions " + ChatColor.DARK_GREEN	+ "disabled!"); 
 		sender.sendMessage(ChatColor.DARK_GREEN + "All players can use the plugin!");
 		return true;
@@ -330,7 +328,6 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropEnableMessages(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.messages", true);
 		plugin.saveConfig();
-		
 		sender.sendMessage(ChatColor.DARK_GREEN + "GlowstoneDrop " + ChatColor.DARK_RED	+ "messages " + ChatColor.DARK_GREEN + "enabled!");
 		return true;
 	}
@@ -339,16 +336,14 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropDisableMessages(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.messages", false);
 		plugin.saveConfig();
-		
 		sender.sendMessage(ChatColor.DARK_GREEN + "GlowstoneDrop " + ChatColor.DARK_RED + "messages " + ChatColor.DARK_GREEN + "disabled!");
 		return true;
 	}
 	
-	// Sets the normal drop to dust with /glowstonedrop set normal dust or /glowdrop set nether dust
+	// Sets the normal drop to dust with /glowstonedrop set normal dust or /glowdrop set normal dust
 	private boolean GlowstoneDropNormalDust(CommandSender sender, String[] args) {
 		plugin.config.set("worlds.normal", "dust");
 		plugin.saveConfig();
-		
 		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "normal worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "dust");
 		return true;
 	}
@@ -357,7 +352,6 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropNetherDust(CommandSender sender, String[] args) {
 		plugin.config.set("worlds.nether", "dust");
 		plugin.saveConfig();
-		
 		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "nether worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "dust");
 		return true;
 	}
@@ -366,7 +360,6 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropSkylandDust(CommandSender sender, String[] args) {
 		plugin.config.set("worlds.skyland", "dust");
 		plugin.saveConfig();
-		
 		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "skylands " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "dust");
 		return true;
 	}
@@ -377,7 +370,6 @@ public class GlowstoneDropCommands {
 		plugin.config.set("worlds.nether", "dust");
 		plugin.config.set("worlds.skyland", "dust");
 		plugin.saveConfig();
-		
 		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "all worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "dust");
 		return true;
 	}
@@ -386,7 +378,6 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropNormalBlock(CommandSender sender, String[] args) {
 		plugin.config.set("worlds.normal", "block");
 		plugin.saveConfig();
-		
 		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "normal worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "blocks");
 		return true;
 	}
@@ -395,7 +386,6 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropNetherBlock(CommandSender sender, String[] args) {
 		plugin.config.set("worlds.nether", "block");
 		plugin.saveConfig();
-		
 		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "nether worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "blocks");
 		return true;
 	}
@@ -404,7 +394,6 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropSkylandBlock(CommandSender sender, String[] args) {
 		plugin.config.set("worlds.skyland", "block");
 		plugin.saveConfig();
-		
 		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "skylands " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "blocks");
 		return true;
 	}
@@ -415,7 +404,6 @@ public class GlowstoneDropCommands {
 		plugin.config.set("worlds.nether", "block");
 		plugin.config.set("worlds.skyland", "block");
 		plugin.saveConfig();
-		
 		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "all worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "blocks");
 		return true;
 	}

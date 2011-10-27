@@ -1,7 +1,7 @@
 package de.xghostkillerx.glowstonedrop;
 
+import java.io.File;
 import java.util.logging.Logger;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
@@ -30,6 +30,7 @@ public class GlowstoneDrop extends JavaPlugin {
 	public static final Logger log = Logger.getLogger("Minecraft");
 	private final GlowstoneDropBlockListener blockListener = new GlowstoneDropBlockListener(this);
 	public FileConfiguration config;
+	public File configFile;
 
 	// Shutdown
 	public void onDisable() {
@@ -44,10 +45,10 @@ public class GlowstoneDrop extends JavaPlugin {
 		pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener,	Event.Priority.Normal, this);
 		
 		// Config
+		configFile = new File(getDataFolder(), "config.yml");
 		config = this.getConfig();
 		loadConfig();
-		getConfig().options().copyDefaults(true);
-		saveConfig();
+		
 		// Message
 		PluginDescriptionFile pdfFile = this.getDescription();
 		log.info(pdfFile.getName() + " " + pdfFile.getVersion() + " is enabled!");
@@ -56,7 +57,7 @@ public class GlowstoneDrop extends JavaPlugin {
 		CallHome.load(this);
 	}
 	
-	// Reload the config file at the start or via command /glowstonedrop reload or /glowdrop reload!
+	// Loads the config at start
 	public void loadConfig() {
 		config.options().header("For help please refer to http://bit.ly/oW6iR1 or http://bit.ly/rcN2QB");
 		config.addDefault("configuration.permissions", true);
@@ -64,14 +65,20 @@ public class GlowstoneDrop extends JavaPlugin {
 		config.addDefault("worlds.normal", "block");
 		config.addDefault("worlds.nether", "dust");
 		config.addDefault("worlds.skyland", "block");
+		config.options().copyDefaults(true);
 		saveConfig();
 	}
 	
-	public void loadAgain() {
-		reloadConfig();
+	// Reloads the config via command /glowstonedrop reload or /glowdrop reload
+	public void loadConfigAgain() {
+		try {
+			config.load(configFile);
+			saveConfig();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
-	
+
 	// Refer to GlowstoneDropCommands
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		GlowstoneDropCommands cmd = new GlowstoneDropCommands(this);
