@@ -1,0 +1,8 @@
+# For help please refer to http://bit.ly/oW6iR1 or http://bit.ly/rcN2QB
+configuration:
+  permissions: true
+  messages: true
+worlds:
+  normal: block
+  nether: dust
+  skyland: block
