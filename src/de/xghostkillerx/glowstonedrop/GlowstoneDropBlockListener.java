@@ -32,7 +32,12 @@ public class GlowstoneDropBlockListener extends BlockListener {
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
 		// Check for the pickaxes
-		if (((player.getItemInHand().getTypeId() == 270) || (player.getItemInHand().getTypeId() == 274) || (player.getItemInHand().getTypeId() == 257) || (player.getItemInHand().getTypeId() == 285) || (player.getItemInHand().getTypeId() == 278)) && event.getBlock().getTypeId() == 89) {
+		if (((player.getItemInHand().getTypeId() == 270)
+			|| (player.getItemInHand().getTypeId() == 274)
+			|| (player.getItemInHand().getTypeId() == 257)
+			|| (player.getItemInHand().getTypeId() == 285)
+			|| (player.getItemInHand().getTypeId() == 278))
+			&& event.getBlock().getTypeId() == 89) {
 			// Check for the config value permisions
 			if (plugin.config.getBoolean("configuration.permissions") == true) {
 				// Normal
@@ -57,11 +62,11 @@ public class GlowstoneDropBlockListener extends BlockListener {
 						}
 					}
 				}
-				// Skyland
-				if (event.getBlock().getWorld().getEnvironment().equals(Environment.SKYLANDS)) {
+				// The End
+				if (event.getBlock().getWorld().getEnvironment().equals(Environment.THE_END)) {
 					// Block
-					if (plugin.config.getString("worlds.skyland").equals("block")) {
-						if (player.hasPermission("glowstonedrop.use.skyland")) {
+					if (plugin.config.getString("worlds.end").equals("block")) {
+						if (player.hasPermission("glowstonedrop.use.end")) {
 							dropBlock(event);
 						} else {
 							message(player);
@@ -70,7 +75,7 @@ public class GlowstoneDropBlockListener extends BlockListener {
 				}
 			}
 			// Without permissions -> no messages
-			if (plugin.config.getBoolean("configuration.permissions") == false) {
+			else if (plugin.config.getBoolean("configuration.permissions") == false) {
 				// Normal
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NORMAL)) {
 					// Block
@@ -86,10 +91,10 @@ public class GlowstoneDropBlockListener extends BlockListener {
 						dropBlock(event);
 					}
 				}
-				// Sklyland
-				if (event.getBlock().getWorld().getEnvironment().equals(Environment.SKYLANDS)) {
+				// The End
+				if (event.getBlock().getWorld().getEnvironment().equals(Environment.THE_END)) {
 					// Block
-					if (plugin.config.getString("worlds.skyland").equals("block")) {
+					if (plugin.config.getString("worlds.end").equals("block")) {
 						dropBlock(event);
 					}
 				}
@@ -100,7 +105,6 @@ public class GlowstoneDropBlockListener extends BlockListener {
 	// Drop the block
 	public void dropBlock(BlockBreakEvent event) {
 		event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(89, 1));
-		event.getBlock().setType(Material.AIR);
 	}
 	
 	// Sends a message

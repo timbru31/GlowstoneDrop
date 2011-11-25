@@ -1,5 +1,8 @@
 package de.xghostkillerx.glowstonedrop;
 
+import java.util.ArrayList;
+import org.bukkit.Material;
+import java.util.List;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -34,6 +37,7 @@ public class GlowstoneDrop extends JavaPlugin {
 	private final GlowstoneDropBlockListener blockListener = new GlowstoneDropBlockListener(this);
 	public FileConfiguration config;
 	public File configFile;
+	final List<Integer> items = new ArrayList<Integer>();
 
 	// Shutdown
 	public void onDisable() {
@@ -71,7 +75,8 @@ public class GlowstoneDrop extends JavaPlugin {
 		config.addDefault("configuration.messages", true);
 		config.addDefault("worlds.normal", "block");
 		config.addDefault("worlds.nether", "dust");
-		config.addDefault("worlds.skyland", "block");
+		config.addDefault("worlds.end", "block");
+		items();
 		config.options().copyDefaults(true);
 		saveConfig();
 	}
@@ -106,5 +111,30 @@ public class GlowstoneDrop extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		GlowstoneDropCommands cmd = new GlowstoneDropCommands(this);
 		return cmd.GlowstoneDropCommand(sender, command, commandLabel, args);
+	}
+	
+	public List<Integer> items()
+	{
+		for (String itemName : config.getString("configuration.items", "").split(","))
+		{
+			itemName = itemName.trim();
+			if (itemName.isEmpty())
+			{
+				continue;
+			}
+			Material is;
+			try
+			{
+				//is = ess.getItemDb().get(itemName);
+				is = Material.getMaterial(itemName);
+				items.add(is.getId());
+			}
+			catch (Exception ex)
+			{
+				PluginDescriptionFile pdfFile = this.getDescription();
+				log.info(pdfFile.getName() + " failed to load items!");
+			}
+		}
+		return items;
 	}
 }

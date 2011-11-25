@@ -135,13 +135,13 @@ public class GlowstoneDropCommands {
 						}
 					}
 				}
-				// skyland
-				if (args.length > 1 && args[1].equals("skyland")) {
+				// The End
+				if (args.length > 1 && args[1].equals("end")) {
 					// block
 					if (args.length > 2 && args[2].equals("block")) {
 						if (plugin.config.getBoolean("configuration.permissions") == true) {
-							if (sender.hasPermission("glowstonedrop.set.skyland")) {
-								GlowstoneDropSkylandBlock(sender, args);
+							if (sender.hasPermission("glowstonedrop.set.end")) {
+								GlowstoneDropEndBlock(sender, args);
 								return true;
 							} else {
 								sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
@@ -149,15 +149,15 @@ public class GlowstoneDropCommands {
 							}
 						}
 						if (plugin.config.getBoolean("configuration.permissions") == false) {
-							GlowstoneDropSkylandBlock(sender, args);
+							GlowstoneDropEndBlock(sender, args);
 							return true;
 						}
 					}
 					// dust
 					if (args.length > 2 && args[2].equals("dust")) {
 						if (plugin.config.getBoolean("configuration.permissions") == true) {
-							if (sender.hasPermission("glowstonedrop.set.skyland")) {
-								GlowstoneDropSkylandDust(sender, args);
+							if (sender.hasPermission("glowstonedrop.set.end")) {
+								GlowstoneDropEndDust(sender, args);
 								return true;
 							} else {
 								sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
@@ -165,7 +165,7 @@ public class GlowstoneDropCommands {
 							}
 						}
 						if (plugin.config.getBoolean("configuration.permissions") == false) {
-							GlowstoneDropSkylandDust(sender, args);
+							GlowstoneDropEndDust(sender, args);
 							return true;
 						}
 					}
@@ -293,7 +293,7 @@ public class GlowstoneDropCommands {
 		sender.sendMessage("To disable something use " + ChatColor.DARK_RED	+ "/glowstonedrop disable " + ChatColor.YELLOW + "<value>");
 		sender.sendMessage("or " + ChatColor.DARK_RED + "/glowdrop disable " + ChatColor.YELLOW + "<value>");
 		sender.sendMessage(ChatColor.YELLOW + "Values " + ChatColor.WHITE + "can be: permissions, messages");
-		sender.sendMessage(ChatColor.YELLOW + "Worlds " + ChatColor.WHITE + "can be: normal, skyland, nether");
+		sender.sendMessage(ChatColor.YELLOW + "Worlds " + ChatColor.WHITE + "can be: normal, end, nether");
 		sender.sendMessage(ChatColor.YELLOW + "Drops " + ChatColor.WHITE + "can be: dust, block");
 		return true;
 	}
@@ -356,11 +356,11 @@ public class GlowstoneDropCommands {
 		return true;
 	}
 	
-	// Sets the sklyand drop to dust with /glowstonedrop set skyland dust or /glowdrop set skyland dust
-	private boolean GlowstoneDropSkylandDust(CommandSender sender, String[] args) {
-		plugin.config.set("worlds.skyland", "dust");
+	// Sets the the end drop to dust with /glowstonedrop set end dust or /glowdrop set end dust
+	private boolean GlowstoneDropEndDust(CommandSender sender, String[] args) {
+		plugin.config.set("worlds.end", "dust");
 		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "skylands " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "dust");
+		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "the end " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "dust");
 		return true;
 	}
 	
@@ -368,7 +368,7 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropAllDust(CommandSender sender, String[] args) {
 		plugin.config.set("worlds.normal", "dust");
 		plugin.config.set("worlds.nether", "dust");
-		plugin.config.set("worlds.skyland", "dust");
+		plugin.config.set("worlds.end", "dust");
 		plugin.saveConfig();
 		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "all worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "dust");
 		return true;
@@ -390,11 +390,11 @@ public class GlowstoneDropCommands {
 		return true;
 	}
 	
-	// Sets the sklyand drop to block with /glowstone drop set skyland block or /glowdrop set skyland block
-	private boolean GlowstoneDropSkylandBlock(CommandSender sender, String[] args) {
-		plugin.config.set("worlds.skyland", "block");
+	// Sets the sklyand drop to block with /glowstone drop set end block or /glowdrop set end block
+	private boolean GlowstoneDropEndBlock(CommandSender sender, String[] args) {
+		plugin.config.set("worlds.end", "block");
 		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "skylands " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "blocks");
+		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "the end " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "blocks");
 		return true;
 	}
 	
@@ -402,7 +402,7 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropAllBlock(CommandSender sender, String[] args) {
 		plugin.config.set("worlds.normal", "block");
 		plugin.config.set("worlds.nether", "block");
-		plugin.config.set("worlds.skyland", "block");
+		plugin.config.set("worlds.end", "block");
 		plugin.saveConfig();
 		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "all worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "blocks");
 		return true;

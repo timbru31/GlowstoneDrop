@@ -25,22 +25,22 @@ permissions:
     children:
      glowstonedrop.use.nether: true
      glowstonedrop.use.normal: true
-     glowstonedrop.use.skyland: true
+     glowstonedrop.use.end: true
   glowstonedrop.use.normal:
     description: Allows you to use GlowstoneDrop in normal worlds
     default: op
   glowstonedrop.use.nether:
     description: Allows you to use GlowstoneDrop in the nether
     default: op
-  glowstonedrop.use.skyland:
-    description: Allows you to use GlowstoneDrop in the skylands
+  glowstonedrop.use.end:
+    description: Allows you to use GlowstoneDrop in the end
     default: op
   glowstonedrop.set.*:
     description: Gives access to all GlowstoneDrop set commands
     children:
      glowstonedrop.set.normal: true
      glowstonedrop.set.nether: true
-     glowstonedrop.set.skyland: true
+     glowstonedrop.set.end: true
      glowstonedrop.set.all: true
   glowstonedrop.set.normal:
     description: Allows you to set the drop for normal
@@ -48,8 +48,8 @@ permissions:
   glowstonedrop.set.nether:
     description: Allows you to set the drop for nether
     default: op
-  glowstonedrop.set.skyland:
-    description: Allows you to set the drop for skyland
+  glowstonedrop.set.end:
+    description: Allows you to set the drop for end
     default: op
   glowstonedrop.set.all:
     description: Allows you to set the drop for all worlds

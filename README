@@ -6,7 +6,7 @@ Thanks for using!
 For support visit the old forum thread: http://bit.ly/oW6iR1
 or the new dev.bukkit.org page: http://bit.ly/rcN2QB
 
-This plugin sends usage statistics! If you wish to disable the usage stats, look at /plugins/stats/config.yml!
+This plugin sends usage statistics! If you wish to disable the usage stats, look at /plugins/PluginStats/config.yml!
 This plugin is released under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)
 
 
@@ -19,7 +19,7 @@ configuration:
 worlds:
   normal: block
   nether: dust
-  skyland: block
+  end: block
 
 Commands & Permissions (if no permissions system is detected, only OPs are able to use the commands!)
 Only bukkit's permissions system is supported! If a command is typed wrong, 
@@ -31,7 +31,7 @@ Description: Needed to use the plugin in the normal worlds! (Otherwise you get d
 glowstonedrop.use.nether
 Description: Needed to use the plugin in the nether worlds! (Otherwise you get dust!)
 
-glowstonedrop.use.skyland
+glowstonedrop.use.end
 Description: Needed to use the plugin in the skland worlds! (Otherwise you get dust!)
 
 /glowstonedrop reload
@@ -84,15 +84,15 @@ Description: Changes the drop in nether worlds to dust
 Node: glowstonedrop.set.nether
 Description: Changes the drop in nether worlds to blocks
 
-/glowstonedrop set skyland dust
-/glowdrop set skyland dust
-Node: glowstonedrop.set.skyland
-Description: Changes the drop in skyland worlds to dust
+/glowstonedrop set end dust
+/glowdrop set end dust
+Node: glowstonedrop.set.end
+Description: Changes the drop in end worlds to dust
 
-/glowstonedrop set skyland block
-/glowdrop set skyland block
-Node: glowstonedrop.set.skyland
-Description: Changes the drop in skyland worlds to blocks
+/glowstonedrop set end block
+/glowdrop set end block
+Node: glowstonedrop.set.end
+Description: Changes the drop in end worlds to blocks
 
 /glowstonedrop set all dust
 /glowdrop set all dust
