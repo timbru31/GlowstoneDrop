@@ -12,6 +12,9 @@ This plugin is released under the Creative Commons Attribution-NonCommercial-Sha
 
 Standard config:
 
+For the custom item put the number in the ''! For more than one item, sepreate them via a comma! If you use more than one custom item, you can delete the '',
+but PLEASE use them again, if you only use one item again!
+
 # For help please refer to http://bit.ly/oW6iR1 or http://bit.ly/rcN2QB
 configuration:
   permissions: true
@@ -20,6 +23,7 @@ worlds:
   normal: block
   nether: dust
   end: block
+items: ''
 
 Commands & Permissions (if no permissions system is detected, only OPs are able to use the commands!)
 Only bukkit's permissions system is supported! If a command is typed wrong, 

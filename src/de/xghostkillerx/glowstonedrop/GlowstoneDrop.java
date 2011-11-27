@@ -1,7 +1,7 @@
 package de.xghostkillerx.glowstonedrop;
 
 import java.util.ArrayList;
-import org.bukkit.Material;
+import java.util.Arrays;
 import java.util.List;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,12 +32,13 @@ import com.randomappdev.pluginstats.Ping;
  */
 
 public class GlowstoneDrop extends JavaPlugin {
-	
+
 	public static final Logger log = Logger.getLogger("Minecraft");
 	private final GlowstoneDropBlockListener blockListener = new GlowstoneDropBlockListener(this);
 	public FileConfiguration config;
 	public File configFile;
-	final List<Integer> items = new ArrayList<Integer>();
+	public List<String> items = new ArrayList<String>();
+	public List<Integer> itemsInt = new ArrayList<Integer>();
 
 	// Shutdown
 	public void onDisable() {
@@ -50,24 +51,24 @@ public class GlowstoneDrop extends JavaPlugin {
 		// Events
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener,	Event.Priority.Normal, this);
-		
+
 		// Config
 		configFile = new File(getDataFolder(), "config.yml");
 		if(!configFile.exists()){
-	        configFile.getParentFile().mkdirs();
-	        copy(getResource("config.yml"), configFile);
-	    }
+			configFile.getParentFile().mkdirs();
+			copy(getResource("config.yml"), configFile);
+		}
 		config = this.getConfig();
 		loadConfig();
-		
+
 		// Message
 		PluginDescriptionFile pdfFile = this.getDescription();
 		log.info(pdfFile.getName() + " " + pdfFile.getVersion() + " is enabled!");
-		
+
 		// Stats
 		Ping.init(this);
 	}
-	
+
 	// Loads the config at start
 	public void loadConfig() {
 		config.options().header("For help please refer to http://bit.ly/oW6iR1 or http://bit.ly/rcN2QB");
@@ -76,21 +77,46 @@ public class GlowstoneDrop extends JavaPlugin {
 		config.addDefault("worlds.normal", "block");
 		config.addDefault("worlds.nether", "dust");
 		config.addDefault("worlds.end", "block");
-		items();
+		config.addDefault("items", "");
+		try {
+			items = Arrays.asList(config.getString("items", null).split(","));
+		}
+		catch (Exception e) {
+			// silence it! Not nice but works...
+			PluginDescriptionFile pdfFile = this.getDescription();
+			log.info(pdfFile.getName() + " failed to load the custom item!");
+			log.info("It will work, but please refer to the topic for a right configuration!");
+		}
+		finally {
+			itemsInt = Arrays.asList(config.getInt("items"));
+		}
 		config.options().copyDefaults(true);
 		saveConfig();
 	}
-	
+
 	// Reloads the config via command /glowstonedrop reload or /glowdrop reload
 	public void loadConfigAgain() {
 		try {
 			config.load(configFile);
+			try {
+				items = Arrays.asList(config.getString("items", null).split(","));
+			}
+			catch (Exception e) {
+				// silence it! Not nice but works...
+				PluginDescriptionFile pdfFile = this.getDescription();
+				log.info(pdfFile.getName() + " failed to load the custom item!");
+				log.info("It will work, but please refer to the topic for a right configuration!");
+			}
+			finally {
+				itemsInt = Arrays.asList(config.getInt("items"));
+			}
 			saveConfig();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// If no config is found, copy the default one!
 	private void copy(InputStream in, File file) {
 		try {
@@ -111,30 +137,5 @@ public class GlowstoneDrop extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		GlowstoneDropCommands cmd = new GlowstoneDropCommands(this);
 		return cmd.GlowstoneDropCommand(sender, command, commandLabel, args);
-	}
-	
-	public List<Integer> items()
-	{
-		for (String itemName : config.getString("configuration.items", "").split(","))
-		{
-			itemName = itemName.trim();
-			if (itemName.isEmpty())
-			{
-				continue;
-			}
-			Material is;
-			try
-			{
-				//is = ess.getItemDb().get(itemName);
-				is = Material.getMaterial(itemName);
-				items.add(is.getId());
-			}
-			catch (Exception ex)
-			{
-				PluginDescriptionFile pdfFile = this.getDescription();
-				log.info(pdfFile.getName() + " failed to load items!");
-			}
-		}
-		return items;
 	}
 }

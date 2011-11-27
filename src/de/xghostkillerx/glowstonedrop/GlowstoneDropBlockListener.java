@@ -36,8 +36,10 @@ public class GlowstoneDropBlockListener extends BlockListener {
 			|| (player.getItemInHand().getTypeId() == 274)
 			|| (player.getItemInHand().getTypeId() == 257)
 			|| (player.getItemInHand().getTypeId() == 285)
-			|| (player.getItemInHand().getTypeId() == 278))
-			&& event.getBlock().getTypeId() == 89) {
+			|| (player.getItemInHand().getTypeId() == 278)
+			|| (plugin.items.contains(Integer.toString(event.getPlayer().getItemInHand().getTypeId())))
+			|| (plugin.itemsInt.contains(event.getPlayer().getItemInHand().getTypeId())))
+			&& (event.getBlock().getTypeId() == 89)) {
 			// Check for the config value permisions
 			if (plugin.config.getBoolean("configuration.permissions") == true) {
 				// Normal
@@ -105,6 +107,7 @@ public class GlowstoneDropBlockListener extends BlockListener {
 	// Drop the block
 	public void dropBlock(BlockBreakEvent event) {
 		event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(89, 1));
+		event.getBlock().setType(Material.AIR);
 	}
 	
 	// Sends a message
