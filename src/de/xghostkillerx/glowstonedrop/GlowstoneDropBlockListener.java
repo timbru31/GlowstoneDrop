@@ -39,7 +39,8 @@ public class GlowstoneDropBlockListener extends BlockListener {
 			|| (player.getItemInHand().getTypeId() == 278)
 			|| (plugin.items.contains(Integer.toString(event.getPlayer().getItemInHand().getTypeId())))
 			|| (plugin.itemsInt.contains(event.getPlayer().getItemInHand().getTypeId())))
-			&& (event.getBlock().getTypeId() == 89)) {
+			&& (event.getBlock().getTypeId() == 89)
+			&& (player.getItemInHand().getType() != Material.AIR)) {
 			// Check for the config value permisions
 			if (plugin.config.getBoolean("configuration.permissions") == true) {
 				// Normal
