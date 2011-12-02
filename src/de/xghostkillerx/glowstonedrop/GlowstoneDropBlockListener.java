@@ -10,7 +10,7 @@ import org.bukkit.ChatColor;
 
 /**
  * GlowstoneDrop for CraftBukkit/Bukkit
- * Handles some general stuff!
+ * Handles the block stuff!
  * 
  * Refer to the forum thread:
  * http://bit.ly/oW6iR1
