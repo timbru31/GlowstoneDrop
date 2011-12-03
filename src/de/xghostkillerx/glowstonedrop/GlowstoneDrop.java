@@ -54,7 +54,7 @@ public class GlowstoneDrop extends JavaPlugin {
 
 		// Config
 		configFile = new File(getDataFolder(), "config.yml");
-		if(!configFile.exists()){
+		if (!configFile.exists()) {
 			configFile.getParentFile().mkdirs();
 			copy(getResource("config.yml"), configFile);
 		}
@@ -123,7 +123,7 @@ public class GlowstoneDrop extends JavaPlugin {
 			OutputStream out = new FileOutputStream(file);
 			byte[] buf = new byte[1024];
 			int len;
-			while((len=in.read(buf))>0){
+			while ((len=in.read(buf)) >0) {
 				out.write(buf,0,len);
 			}
 			out.close();
