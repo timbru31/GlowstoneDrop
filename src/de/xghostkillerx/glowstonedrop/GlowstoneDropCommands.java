@@ -26,11 +26,11 @@ public class GlowstoneDropCommands {
 	plugin = instance;
 	}
 
-	//Commands; always check for permissions!
+	// Commands; always check for permissions!
 	public boolean GlowstoneDropCommand (CommandSender sender, Command command, String commandLabel, String[] args) {
 		if ((command.getName().equalsIgnoreCase("glowstonedrop")) || (command.getName().equalsIgnoreCase("glowdrop"))) {
 			// reload
-			if (args.length > 0 && args[0].equals("reload")) {
+			if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
 				if (plugin.config.getBoolean("configuration.permissions") == true) {
 					if (sender.hasPermission("glowstonedrop.reload")) {
 						GlowstoneDropReload(sender, args);
@@ -47,7 +47,7 @@ public class GlowstoneDropCommands {
 				}
 			}
 			// help
-			if (args.length > 0 && args[0].equals("help")) {
+			if (args.length > 0 && args[0].equalsIgnoreCase("help")) {
 				if (plugin.config.getBoolean("configuration.permissions") == true) {
 					if (sender.hasPermission("glowstonedrop.help")) {
 						GlowstoneDropHelp(sender, args);
@@ -64,11 +64,11 @@ public class GlowstoneDropCommands {
 				}
 			}
 			// set
-			if (args.length > 0 && args[0].equals("set")) {
+			if (args.length > 0 && args[0].equalsIgnoreCase("set")) {
 				// normal
-				if (args.length > 1 && args[1].equals("normal")) {
+				if (args.length > 1 && args[1].equalsIgnoreCase("normal")) {
 					// block
-					if (args.length > 2 && args[2].equals("block")) {
+					if (args.length > 2 && args[2].equalsIgnoreCase("block")) {
 						if (plugin.config.getBoolean("configuration.permissions") == true) {
 							if (sender.hasPermission("glowstonedrop.set.normal")) {
 								GlowstoneDropNormalBlock(sender, args);
@@ -84,7 +84,7 @@ public class GlowstoneDropCommands {
 						}
 					}
 					// dust
-					if (args.length > 2 && args[2].equals("dust")) {
+					if (args.length > 2 && args[2].equalsIgnoreCase("dust")) {
 						if (plugin.config.getBoolean("configuration.permissions") == true) {
 							if (sender.hasPermission("glowstonedrop.set.normal")) {
 								GlowstoneDropNormalDust(sender, args);
@@ -101,9 +101,9 @@ public class GlowstoneDropCommands {
 					}
 				}
 				// nether
-				if (args.length > 1 && args[1].equals("nether")) {
+				if (args.length > 1 && args[1].equalsIgnoreCase("nether")) {
 					// block
-					if (args.length > 2 && args[2].equals("block")) {
+					if (args.length > 2 && args[2].equalsIgnoreCase("block")) {
 						if (plugin.config.getBoolean("configuration.permissions") == true) {
 							if (sender.hasPermission("glowstonedrop.set.nether")) {
 								GlowstoneDropNetherBlock(sender, args);
@@ -119,7 +119,7 @@ public class GlowstoneDropCommands {
 						}
 					}
 					// dust
-					if (args.length > 2 && args[2].equals("dust")) {
+					if (args.length > 2 && args[2].equalsIgnoreCase("dust")) {
 						if (plugin.config.getBoolean("configuration.permissions") == true) {
 							if (sender.hasPermission("glowstonedrop.set.nether")) {
 								GlowstoneDropNetherDust(sender, args);
@@ -136,9 +136,9 @@ public class GlowstoneDropCommands {
 					}
 				}
 				// The End
-				if (args.length > 1 && args[1].equals("end")) {
+				if (args.length > 1 && args[1].equalsIgnoreCase("end")) {
 					// block
-					if (args.length > 2 && args[2].equals("block")) {
+					if (args.length > 2 && args[2].equalsIgnoreCase("block")) {
 						if (plugin.config.getBoolean("configuration.permissions") == true) {
 							if (sender.hasPermission("glowstonedrop.set.end")) {
 								GlowstoneDropEndBlock(sender, args);
@@ -154,7 +154,7 @@ public class GlowstoneDropCommands {
 						}
 					}
 					// dust
-					if (args.length > 2 && args[2].equals("dust")) {
+					if (args.length > 2 && args[2].equalsIgnoreCase("dust")) {
 						if (plugin.config.getBoolean("configuration.permissions") == true) {
 							if (sender.hasPermission("glowstonedrop.set.end")) {
 								GlowstoneDropEndDust(sender, args);
@@ -171,9 +171,9 @@ public class GlowstoneDropCommands {
 					}
 				}
 				// all
-				if (args.length > 1 && args[1].equals("all")) {
+				if (args.length > 1 && args[1].equalsIgnoreCase("all")) {
 					// block
-					if (args.length > 2 && args[2].equals("block")) {
+					if (args.length > 2 && args[2].equalsIgnoreCase("block")) {
 						if (plugin.config.getBoolean("configuration.permissions") == true) {
 							if (sender.hasPermission("glowstonedrop.set.all")) {
 								GlowstoneDropAllBlock(sender, args);
@@ -189,7 +189,7 @@ public class GlowstoneDropCommands {
 						}
 					}
 					// dust
-					if (args.length > 2 && args[2].equals("dust")) {
+					if (args.length > 2 && args[2].equalsIgnoreCase("dust")) {
 						if (plugin.config.getBoolean("configuration.permissions") == true) {
 							if (sender.hasPermission("glowstonedrop.set.all")) {
 								GlowstoneDropAllDust(sender, args);
@@ -207,9 +207,9 @@ public class GlowstoneDropCommands {
 				}
 			}
 			// enable
-			if (args.length > 0 && args[0].equals("enable")) {
+			if (args.length > 0 && args[0].equalsIgnoreCase("enable")) {
 				// permissions
-				if (args.length > 1 && args[1].equals("permissions")) {
+				if (args.length > 1 && args[1].equalsIgnoreCase("permissions")) {
 					if (plugin.config.getBoolean("configuration.permissions") == true) {
 						if (sender.hasPermission("glowstonedrop.enable.permissions")) {
 							GlowstoneDropEnablePermissions(sender, args);
@@ -225,7 +225,7 @@ public class GlowstoneDropCommands {
 					}
 				}
 				// messages
-				if (args.length > 1 && args[1].equals("messages")) {
+				if (args.length > 1 && args[1].equalsIgnoreCase("messages")) {
 					if (plugin.config.getBoolean("configuration.permissions") == true) {
 						if (sender.hasPermission("glowstonedrop.enable.messages")) {
 							GlowstoneDropEnableMessages(sender, args);
@@ -242,9 +242,9 @@ public class GlowstoneDropCommands {
 				}
 			}
 			// disable
-			if (args.length > 0 && args[0].equals("disable")) {
+			if (args.length > 0 && args[0].equalsIgnoreCase("disable")) {
 				// permissions
-				if (args.length > 1 && args[1].equals("permissions")) {
+				if (args.length > 1 && args[1].equalsIgnoreCase("permissions")) {
 					if (plugin.config.getBoolean("configuration.permissions") == true) {
 						if (sender.hasPermission("glowstonedrop.disable.permissions")) {
 							GlowstoneDropDisablePermissions(sender, args);
@@ -260,7 +260,7 @@ public class GlowstoneDropCommands {
 					}
 				}
 				// messages
-				if (args.length > 1 && args[1].equals("messages")) {
+				if (args.length > 1 && args[1].equalsIgnoreCase("messages")) {
 					if (plugin.config.getBoolean("configuration.permissions") == true) {
 						if (sender.hasPermission("glowstonedrop.disable.messages")) {
 							GlowstoneDropDisableMessages(sender, args);
@@ -276,7 +276,7 @@ public class GlowstoneDropCommands {
 					}
 				}
 			}
-			if (args.length > 0 && args[0].equals("add")) {
+			if (args.length > 0 && args[0].equalsIgnoreCase("add")) {
 				if (args[1] != null) {
 					String value = args[1];
 					plugin.items.add(value);
@@ -307,7 +307,7 @@ public class GlowstoneDropCommands {
 		return true;
 	}
 	
-	// Reload the config with /glowstonedrop reload or /glowdrop reload
+	// Reloads the config with /glowstonedrop reload or /glowdrop reload
 	private boolean GlowstoneDropReload(CommandSender sender, String[] args) {
 		PluginDescriptionFile pdfFile = plugin.getDescription();
 		plugin.loadConfigAgain();
@@ -315,7 +315,7 @@ public class GlowstoneDropCommands {
 		return true;
 	}
 	
-	// Enable permissions with /glowstonedrop enable permissions or /glowdrop enable permissions
+	// Enables permissions with /glowstonedrop enable permissions or /glowdrop enable permissions
 	private boolean GlowstoneDropEnablePermissions(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.permissions", true);
 		plugin.saveConfig();
@@ -324,7 +324,7 @@ public class GlowstoneDropCommands {
 		return true;
 	}
 	
-	// Disable permissions with /glowstonedrop disable permissions or /glowdrop disable permissions
+	// Disables permissions with /glowstonedrop disable permissions or /glowdrop disable permissions
 	private boolean GlowstoneDropDisablePermissions(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.permissions", false);
 		plugin.saveConfig();
@@ -333,7 +333,7 @@ public class GlowstoneDropCommands {
 		return true;
 	}
 	
-	// Enable messages with /glowstonedrop enable messages or /glowdrop enable messages
+	// Enables messages with /glowstonedrop enable messages or /glowdrop enable messages
 	private boolean GlowstoneDropEnableMessages(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.messages", true);
 		plugin.saveConfig();
@@ -341,7 +341,7 @@ public class GlowstoneDropCommands {
 		return true;
 	}
 	
-	// Disable messages with /glowstonedrop disable messages or /glowdrop disable messages
+	// Disables messages with /glowstonedrop disable messages or /glowdrop disable messages
 	private boolean GlowstoneDropDisableMessages(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.messages", false);
 		plugin.saveConfig();

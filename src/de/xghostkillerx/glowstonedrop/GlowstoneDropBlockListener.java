@@ -46,7 +46,7 @@ public class GlowstoneDropBlockListener extends BlockListener {
 				// Normal
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NORMAL)) {
 					// Block
-					if (plugin.config.getString("worlds.normal").equals("block")) {
+					if (plugin.config.getString("worlds.normal").equalsIgnoreCase("block")) {
 						if (player.hasPermission("glowstonedrop.use.normal")) {
 							dropBlock(event);
 						} else {
@@ -57,7 +57,7 @@ public class GlowstoneDropBlockListener extends BlockListener {
 				// Nether
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NETHER)) {
 					// Block
-					if (plugin.config.getString("worlds.nether").equals("block")) {
+					if (plugin.config.getString("worlds.nether").equalsIgnoreCase("block")) {
 						if (player.hasPermission("glowstonedrop.use.nether")) {
 							dropBlock(event);
 						} else {
@@ -68,7 +68,7 @@ public class GlowstoneDropBlockListener extends BlockListener {
 				// The End
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.THE_END)) {
 					// Block
-					if (plugin.config.getString("worlds.end").equals("block")) {
+					if (plugin.config.getString("worlds.end").equalsIgnoreCase("block")) {
 						if (player.hasPermission("glowstonedrop.use.end")) {
 							dropBlock(event);
 						} else {
@@ -82,7 +82,7 @@ public class GlowstoneDropBlockListener extends BlockListener {
 				// Normal
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NORMAL)) {
 					// Block
-					if (plugin.config.getString("worlds.normal").equals("block")) {
+					if (plugin.config.getString("worlds.normal").equalsIgnoreCase("block")) {
 						event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(89, 1));
 						event.getBlock().setType(Material.AIR);
 					}
@@ -90,14 +90,14 @@ public class GlowstoneDropBlockListener extends BlockListener {
 				// Nether
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NETHER)) {
 					// Block
-					if (plugin.config.getString("worlds.nether").equals("block")){
+					if (plugin.config.getString("worlds.nether").equalsIgnoreCase("block")){
 						dropBlock(event);
 					}
 				}
 				// The End
 				if (event.getBlock().getWorld().getEnvironment().equals(Environment.THE_END)) {
 					// Block
-					if (plugin.config.getString("worlds.end").equals("block")) {
+					if (plugin.config.getString("worlds.end").equalsIgnoreCase("block")) {
 						dropBlock(event);
 					}
 				}
