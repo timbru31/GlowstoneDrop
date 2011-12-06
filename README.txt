@@ -1,6 +1,4 @@
-Hi,
-
-this is the README of GlowstoneDrop
+This is the README of GlowstoneDrop
 Thanks to XxFuNxX for the original plugin!
 Thanks for using!
 For support visit the old forum thread: http://bit.ly/oW6iR1
