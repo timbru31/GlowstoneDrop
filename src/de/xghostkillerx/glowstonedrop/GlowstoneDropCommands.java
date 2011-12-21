@@ -357,7 +357,7 @@ public class GlowstoneDropCommands {
 		return true;
 	}
 	
-	// Sets the nether drop to dust /glowstonedrop set neher dust or /glowdrop set nether dust
+	// Sets the nether drop to dust /glowstonedrop set nether dust or /glowdrop set nether dust
 	private boolean GlowstoneDropNetherDust(CommandSender sender, String[] args) {
 		plugin.config.set("worlds.nether", "dust");
 		plugin.saveConfig();
