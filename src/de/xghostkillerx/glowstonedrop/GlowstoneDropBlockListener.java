@@ -23,24 +23,18 @@ import org.bukkit.ChatColor;
  */
 
 public class GlowstoneDropBlockListener extends BlockListener {
-	
+
 	public static GlowstoneDrop plugin;
 	public GlowstoneDropBlockListener(GlowstoneDrop instance) {
 		plugin = instance;
 	}
+	public int message = 0;
 
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
-		// Check for the pickaxes
-		if (((player.getItemInHand().getTypeId() == 270)
-			|| (player.getItemInHand().getTypeId() == 274)
-			|| (player.getItemInHand().getTypeId() == 257)
-			|| (player.getItemInHand().getTypeId() == 285)
-			|| (player.getItemInHand().getTypeId() == 278)
-			|| (plugin.items.contains(Integer.toString(event.getPlayer().getItemInHand().getTypeId())))
-			|| (plugin.itemsInt.contains(event.getPlayer().getItemInHand().getTypeId())))
-			&& (event.getBlock().getTypeId() == 89)
-			&& (player.getItemInHand().getType() != Material.AIR)) {
+		// Check for the item in hand and if it's on the list
+		if (sameItem(player.getItemInHand().getTypeId()) == true
+				&& (event.getBlock().getTypeId() == 89)) {
 			// Check for the config value permissions
 			if (plugin.config.getBoolean("configuration.permissions") == true) {
 				// Normal
@@ -104,17 +98,38 @@ public class GlowstoneDropBlockListener extends BlockListener {
 			}
 		}
 	}
-	
+
 	// Drop the block
 	public void dropBlock(BlockBreakEvent event) {
 		event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(89, 1));
 		event.getBlock().setType(Material.AIR);
 	}
-	
+
 	// Sends a message
 	public void message(Player player) {
 		if (plugin.config.getBoolean("configuration.messages") == true) {
 			player.sendMessage(ChatColor.DARK_RED + "You don't have the permission to use GlowstoneDrop! Dropping dust instead!");
 		}
+	}
+
+	// Is the item in the hand on the list?
+	private boolean sameItem(int item) {
+		for (int i = 0; i < plugin.itemList.size(); i++) {
+			String itemName = plugin.itemList.get(i);
+			try {
+				Material material = Material.valueOf(itemName);
+				if (material.getId() == item) {
+					return true;
+				}
+			}
+			catch (Exception e) {
+				// Prevent spamming
+				if (message == 0) {
+					GlowstoneDrop.log.warning("GlowstoneDrop couldn't load the items! Please check your config!");
+					message = 1;
+				}
+			}
+		}
+		return false;
 	}
 }

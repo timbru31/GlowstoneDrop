@@ -4,8 +4,8 @@ Thanks for using!
 For support visit the old forum thread: http://bit.ly/oW6iR1
 or the new dev.bukkit.org page: http://bit.ly/rcN2QB
 
-This plugin sends usage statistics! If you wish to disable the usage stats, look at /plugins/PluginStats/config.yml!
-This plugin is released under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)
+This plugin sends usage statistics! If you wish to disable the usage stats, look at /plugins/PluginMetrics/config.yml!
+This plugin is released under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) license.
 
 
 Standard config:
@@ -21,7 +21,12 @@ worlds:
   normal: block
   nether: dust
   end: block
-items: ''
+items:
+- WOOD_PICKAXE
+- STONE_PICKAXE
+- IRON_PICKAXE
+- GOLD_PICKAXE
+- DIAMOND_PICKAXE
 
 Commands & Permissions (if no permissions system is detected, only OPs are able to use the commands!)
 Only bukkit's permissions system is supported! If a command is typed wrong, 

@@ -6,4 +6,9 @@ worlds:
   normal: block
   nether: dust
   end: block
-items: ''
+items:
+- WOOD_PICKAXE
+- STONE_PICKAXE
+- IRON_PICKAXE
+- GOLD_PICKAXE
+- DIAMOND_PICKAXE

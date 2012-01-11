@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Logger;
@@ -15,7 +16,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.configuration.file.*;
-import com.randomappdev.pluginstats.Ping;
 
 /**
  * GlowstoneDrop for CraftBukkit/Bukkit
@@ -37,8 +37,8 @@ public class GlowstoneDrop extends JavaPlugin {
 	private final GlowstoneDropBlockListener blockListener = new GlowstoneDropBlockListener(this);
 	public FileConfiguration config;
 	public File configFile;
-	public List<String> items = new ArrayList<String>();
-	public List<Integer> itemsInt = new ArrayList<Integer>();
+	List<String> itemList = new ArrayList<String>();
+	String[] items = {"WOOD_PICKAXE", "STONE_PICKAXE", "IRON_PICKAXE", "GOLD_PICKAXE", "DIAMOND_PICKAXE"};
 
 	// Shutdown
 	public void onDisable() {
@@ -66,7 +66,11 @@ public class GlowstoneDrop extends JavaPlugin {
 		log.info(pdfFile.getName() + " " + pdfFile.getVersion() + " is enabled!");
 
 		// Stats
-		Ping.init(this);
+		try {
+			Metrics metrics = new Metrics();
+			metrics.beginMeasuringPlugin(this);
+		}
+		catch (IOException e) {}
 	}
 
 	// Loads the config at start
@@ -77,19 +81,8 @@ public class GlowstoneDrop extends JavaPlugin {
 		config.addDefault("worlds.normal", "block");
 		config.addDefault("worlds.nether", "dust");
 		config.addDefault("worlds.end", "block");
-		config.addDefault("items", "");
-		try {
-			items = Arrays.asList(config.getString("items", null).split(","));
-		}
-		catch (Exception e) {
-			// silence it! Not nice but works...
-			PluginDescriptionFile pdfFile = this.getDescription();
-			log.info(pdfFile.getName() + " failed to load the custom item!");
-			log.info("It will work, but please refer to the topic for a right configuration!");
-		}
-		finally {
-			itemsInt = Arrays.asList(config.getInt("items"));
-		}
+		config.addDefault("items", Arrays.asList(items));
+		itemList = config.getStringList("items");
 		config.options().copyDefaults(true);
 		saveConfig();
 	}
@@ -98,19 +91,8 @@ public class GlowstoneDrop extends JavaPlugin {
 	public void loadConfigAgain() {
 		try {
 			config.load(configFile);
-			try {
-				items = Arrays.asList(config.getString("items", null).split(","));
-			}
-			catch (Exception e) {
-				// silence it! Not nice but works...
-				PluginDescriptionFile pdfFile = this.getDescription();
-				log.info(pdfFile.getName() + " failed to load the custom item!");
-				log.info("It will work, but please refer to the topic for a right configuration!");
-			}
-			finally {
-				itemsInt = Arrays.asList(config.getInt("items"));
-			}
 			saveConfig();
+			itemList = config.getStringList("items");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
