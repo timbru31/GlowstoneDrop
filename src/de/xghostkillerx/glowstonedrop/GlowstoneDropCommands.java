@@ -390,7 +390,7 @@ public class GlowstoneDropCommands {
 		return true;
 	}
 
-	// Sets the sklyand drop to block with /glowstone drop set end block or /glowdrop set end block
+	// Sets the skyland drop to block with /glowstone drop set end block or /glowdrop set end block
 	private boolean GlowstoneDropEndBlock(CommandSender sender, String[] args) {
 		plugin.config.set("worlds.end", "block");
 		plugin.saveConfig();
