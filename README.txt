@@ -10,9 +10,6 @@ This plugin is released under the Creative Commons Attribution-NonCommercial-Sha
 
 Standard config:
 
-For the custom item put the number in the ''! For more than one item, separate them via a comma! If you use more than one custom item, you can delete the '',
-but PLEASE use them again, if you only use one item again!
-
 # For help please refer to http://bit.ly/oW6iR1 or http://bit.ly/rcN2QB
 configuration:
   permissions: true
