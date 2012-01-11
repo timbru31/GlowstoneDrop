@@ -276,15 +276,6 @@ public class GlowstoneDropCommands {
 					}
 				}
 			}
-//			if (args.length > 0 && args[0].equalsIgnoreCase("add")) {
-//				if (args[1] != null) {
-//					String value = args[1];
-//					plugin.items.add(value);
-//					sender.sendMessage("DONE!");
-//					plugin.loadConfigAgain();
-//				}
-//				else sender.sendMessage("Falsch gemacht!");
-//			}
 		}
 		return false;
 	}
