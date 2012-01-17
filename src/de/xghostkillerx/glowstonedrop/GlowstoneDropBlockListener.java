@@ -1,7 +1,8 @@
 package de.xghostkillerx.glowstonedrop;
 
+import java.util.Arrays;
+
 import org.bukkit.Material;
-import org.bukkit.World.Environment;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.inventory.ItemStack;
@@ -28,42 +29,21 @@ public class GlowstoneDropBlockListener extends BlockListener {
 	public GlowstoneDropBlockListener(GlowstoneDrop instance) {
 		plugin = instance;
 	}
-	public int message = 0;
+	public boolean message = true;
+	String[] worlds = {"normal", "nether", "end"};
 
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
+		String enviroment = event.getBlock().getWorld().getEnvironment().toString().toLowerCase();
 		// Check for the item in hand and if it's on the list
 		if (sameItem(player.getItemInHand().getTypeId()) == true
 				&& (event.getBlock().getTypeId() == 89)) {
 			// Check for the config value permissions
 			if (plugin.config.getBoolean("configuration.permissions") == true) {
-				// Normal
-				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NORMAL)) {
+				if (Arrays.asList(worlds).contains(enviroment)) {
 					// Block
-					if (plugin.config.getString("worlds.normal").equalsIgnoreCase("block")) {
-						if (player.hasPermission("glowstonedrop.use.normal")) {
-							dropBlock(event);
-						} else {
-							message(player);
-						}
-					}
-				}
-				// Nether
-				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NETHER)) {
-					// Block
-					if (plugin.config.getString("worlds.nether").equalsIgnoreCase("block")) {
-						if (player.hasPermission("glowstonedrop.use.nether")) {
-							dropBlock(event);
-						} else {
-							message(player);
-						}
-					}
-				}
-				// The End
-				if (event.getBlock().getWorld().getEnvironment().equals(Environment.THE_END)) {
-					// Block
-					if (plugin.config.getString("worlds.end").equalsIgnoreCase("block")) {
-						if (player.hasPermission("glowstonedrop.use.end")) {
+					if (plugin.config.getString("worlds." + enviroment).equalsIgnoreCase("block")) {
+						if (player.hasPermission("glowstonedrop.use." + enviroment)) {
 							dropBlock(event);
 						} else {
 							message(player);
@@ -73,25 +53,9 @@ public class GlowstoneDropBlockListener extends BlockListener {
 			}
 			// Without permissions -> no messages
 			else if (plugin.config.getBoolean("configuration.permissions") == false) {
-				// Normal
-				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NORMAL)) {
+				if (Arrays.asList(worlds).contains(enviroment)) {
 					// Block
-					if (plugin.config.getString("worlds.normal").equalsIgnoreCase("block")) {
-						event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(89, 1));
-						event.getBlock().setType(Material.AIR);
-					}
-				}
-				// Nether
-				if (event.getBlock().getWorld().getEnvironment().equals(Environment.NETHER)) {
-					// Block
-					if (plugin.config.getString("worlds.nether").equalsIgnoreCase("block")){
-						dropBlock(event);
-					}
-				}
-				// The End
-				if (event.getBlock().getWorld().getEnvironment().equals(Environment.THE_END)) {
-					// Block
-					if (plugin.config.getString("worlds.end").equalsIgnoreCase("block")) {
+					if (plugin.config.getString("worlds." + enviroment).equalsIgnoreCase("block")) {
 						dropBlock(event);
 					}
 				}
@@ -124,9 +88,9 @@ public class GlowstoneDropBlockListener extends BlockListener {
 			}
 			catch (Exception e) {
 				// Prevent spamming
-				if (message == 0) {
+				if (message == true) {
 					GlowstoneDrop.log.warning("GlowstoneDrop couldn't load the items! Please check your config!");
-					message = 1;
+					message = false;
 				}
 			}
 		}

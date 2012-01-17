@@ -36,7 +36,9 @@ public class GlowstoneDrop extends JavaPlugin {
 	public static final Logger log = Logger.getLogger("Minecraft");
 	private final GlowstoneDropBlockListener blockListener = new GlowstoneDropBlockListener(this);
 	public FileConfiguration config;
+	public FileConfiguration localization;
 	public File configFile;
+	public File localizationFile;
 	List<String> itemList = new ArrayList<String>();
 	String[] items = {"WOOD_PICKAXE", "STONE_PICKAXE", "IRON_PICKAXE", "GOLD_PICKAXE", "DIAMOND_PICKAXE"};
 
@@ -60,6 +62,22 @@ public class GlowstoneDrop extends JavaPlugin {
 		}
 		config = this.getConfig();
 		loadConfig();
+		
+		// Localization
+		localizationFile = new File(getDataFolder(), "localization.yml");
+		if(!localizationFile.exists()){
+	        localizationFile.getParentFile().mkdirs();
+	        copy(getResource("localization.yml"), localizationFile);
+	    }
+		// Try to load
+		try {
+			localization = YamlConfiguration.loadConfiguration(localizationFile);
+			loadLocalization();
+		}
+		// if it failed, tell it
+		catch (Exception e) {
+			log.warning("GlowstoneDrop failed to load the localization!");
+		}
 
 		// Message
 		PluginDescriptionFile pdfFile = this.getDescription();
@@ -86,12 +104,30 @@ public class GlowstoneDrop extends JavaPlugin {
 		config.options().copyDefaults(true);
 		saveConfig();
 	}
-
+	
+	// Loads the localization
+	public void loadLocalization() {
+		localization.options().copyDefaults(true);
+		saveLocalization();
+		
+	}
+	
+	// Saves the localization
+	public void saveLocalization() {
+		try {
+			localization.save(localizationFile);
+		} catch (IOException e) {
+			log.warning("CookMe failed to save the localization! Please report this!");
+		}
+	}
+	
 	// Reloads the config via command /glowstonedrop reload or /glowdrop reload
-	public void loadConfigAgain() {
+	public void loadConfigsAgain() {
 		try {
 			config.load(configFile);
 			saveConfig();
+			localization.load(localizationFile);
+			saveLocalization();
 			itemList = config.getStringList("items");
 		}
 		catch (Exception e) {

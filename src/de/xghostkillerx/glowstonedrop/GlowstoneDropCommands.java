@@ -301,7 +301,7 @@ public class GlowstoneDropCommands {
 	// Reloads the config with /glowstonedrop reload or /glowdrop reload
 	private boolean GlowstoneDropReload(CommandSender sender, String[] args) {
 		PluginDescriptionFile pdfFile = plugin.getDescription();
-		plugin.loadConfigAgain();
+		plugin.loadConfigsAgain();
 		sender.sendMessage(ChatColor.DARK_GREEN + "GlowstoneDrop version " + ChatColor.DARK_RED + pdfFile.getVersion() + ChatColor.DARK_GREEN + " reloaded!");
 		return true;
 	}
