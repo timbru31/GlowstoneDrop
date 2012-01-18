@@ -1,31 +1,23 @@
-damage: '&4You got some random damage! Eat some cooked food!'
-hungervenom: '&4Your foodbar is a random time venomed! Eat some cooked food!'
-death: '&4The raw food killed you! :('
-venom: '&4You are for a random time venomed! Eat some cooked food!'
-hungerdecrease: '&4Your food level went down! Eat some cooked food!'
-confusion: '&4You are for a random time confused! Eat some cooked food!'
-blindness: '&4You are for a random time blind! Eat some cooked food!'
-weakness: '&4You are for a random time weak! Eat some cooked food!'
-slowness: '&4You are for a random time slower! Eat some cooked food!'
-slowness_blocks: '&4You mine for a random time slower! Eat some cooked food!'
-instant_damage: '&4You got some magic damage! Eat some cooked food!'
-permission_denied: '&4You don't have the permission to do this!'
-enable_effect: '&2Effect &4%effect &2enabled!'
-enable_all: '&4All &2effects enabled!'
-enable_messages: '&2CookMe &4messages &2enabled!'
-enable_permissions_1: '&2CookMe &4permissions &2enabled! Only OPs'
-enabel_permissions_2: '&2and players with the permission can use the plugin!'
-disable_effect: '&2Effect &4%effect &2disabled!'
-disable_all: '&4All &2effects disabled!'
-disable_messages: '&2CookMe &4messages &2disabled!'
-disable_permissions_1: '&2CookMe &4permissions &4disabled!'
+# The underscores are used for the different lines!
+permission_denied: '&4You don''t have the permission to do this!'
+set: '&2Drop for in the &4%world &2worlds changed to &4%value&2!'
+set_all: '&2Drop for all worlds changed to &4%value&2!'
+reload: '&2GlowstoneDrop &4%version &2reloaded!'
+enable_messages: '&2GlowstoneDrop &4messages &2enabled!'
+disable_messages: '&2GlowstoneDrop &4messages &2disabled!'
+enable_permissions_1: '&2GlowstoneDrop &4permissions &2enabled! Only OPs'
+enable_permissions_2: '&2and players with the permission can use the plugin!'
+disable_permissions_1: '&2GlowstoneDrop &4permissions &4disabled!'
 disable_permissions_2: '&2All players can use the plugin!'
-reload: '&2CookMe &4%version &2reloaded!'
-help_1: '&2Welcome to the CookMe version &4%version &2help'
-help_2: 'To see the help type &4/cookme help'
-help_3: 'To reload use &4/cookme reload'
-help_4: 'To enable something use &4/cookme enable &e<value>'
-help_5: 'To disable something use &4/cookme disable &e<value>'
-help_6: '&eValues: &fpermissions, messages, damage, death, venom,'
-help_7: 'hungervenom, hungerdecrease, confusion, blindness, weakness'
-help_8: 'slowness, slowness_blocks, instant_damage'
+help_1: '&2Welcome to the GlowstoneDrop version &4%version &2help!'
+help_2: To see the help type &4/glowstonedrop help &f or &4/glowdrop help
+help_3: To reload use &4/glowstonedrop reload &f or &4/glowdrop reload
+help_4: To change the drops use &4/glowstonedrop set <world> <drop>
+help_5: or &4/glowdrop set <world> <drop>
+help_6: To enable something use &4/glowstonedrop enable &e<value>
+help_7: or &4/glowdrop enable &e<value>
+help_8: To disable something use &4/glowstonedrop disable &e<value>
+help_9: or &4/glowdrop disable &e<value>
+help_10: '&eValues &fcan be: permissions, messages'
+help_11: '&eWorlds &fcan be: normal, end, nether (or all)'
+help_12: '&eDrops &fcan be: dust, block'

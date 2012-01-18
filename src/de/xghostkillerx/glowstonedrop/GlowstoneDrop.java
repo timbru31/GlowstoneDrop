@@ -74,7 +74,7 @@ public class GlowstoneDrop extends JavaPlugin {
 			localization = YamlConfiguration.loadConfiguration(localizationFile);
 			loadLocalization();
 		}
-		// if it failed, tell it
+		// If it failed, tell it
 		catch (Exception e) {
 			log.warning("GlowstoneDrop failed to load the localization!");
 		}
@@ -107,6 +107,29 @@ public class GlowstoneDrop extends JavaPlugin {
 	
 	// Loads the localization
 	public void loadLocalization() {
+		localization.options().header("The underscores are used for the different lines!");
+		localization.addDefault("permission_denied", "&4You don''t have the permission to do this!");
+		localization.addDefault("set", "&2Drop for in the &4%world &2worlds changed to &4%value&2!");
+		localization.addDefault("set_all", "&2Drop for all worlds changed to &4%value&2!");
+		localization.addDefault("reload", "&2GlowstoneDrop &4%version &2reloaded!");
+		localization.addDefault("enable_messages", "&2GlowstoneDrop &4messages &2enabled!");
+		localization.addDefault("disable_messages", "&2GlowstoneDrop &4messages &2disabled!");
+		localization.addDefault("enable_permissions_1", "&2GlowstoneDrop &4permissions &2enabled! Only OPs");
+		localization.addDefault("enable_permissions_2", "&2and players with the permission can use the plugin!");
+		localization.addDefault("disable_permissions_1", "&2GlowstoneDrop &4permissions &4disabled!");
+		localization.addDefault("disable_permissions_2", "&2All players can use the plugin!");
+		localization.addDefault("help_1", "&2Welcome to the GlowstoneDrop version &4%version &2help!");
+		localization.addDefault("help_2", "To see the help type &4/glowstonedrop help &f or &4/glowdrop help");
+		localization.addDefault("help_3", "To reload use &4/glowstonedrop reload &f or &4/glowdrop reload");
+		localization.addDefault("help_4", "To change the drops use &4/glowstonedrop set <world> <drop>");
+		localization.addDefault("help_5", "or &4/glowdrop set <world> <drop>");
+		localization.addDefault("help_6", "To enable something use &4/glowstonedrop enable &e<value>");
+		localization.addDefault("help_7", "or &4/glowdrop enable &e<value>");
+		localization.addDefault("help_8", "To disable something use &4/glowstonedrop disable &e<value>");
+		localization.addDefault("help_9", "or &4/glowdrop disable &e<value>");
+		localization.addDefault("help_10", "&eValues &fcan be: permissions, messages");
+		localization.addDefault("help_11", "&eWorlds &fcan be: normal, end, nether (or all)");
+		localization.addDefault("help_12", "&eDrops &fcan be: dust, block");
 		localization.options().copyDefaults(true);
 		saveLocalization();
 		
@@ -117,7 +140,7 @@ public class GlowstoneDrop extends JavaPlugin {
 		try {
 			localization.save(localizationFile);
 		} catch (IOException e) {
-			log.warning("CookMe failed to save the localization! Please report this!");
+			log.warning("GlowstoneDrop failed to save the localization! Please report this!");
 		}
 	}
 	
@@ -141,7 +164,7 @@ public class GlowstoneDrop extends JavaPlugin {
 			OutputStream out = new FileOutputStream(file);
 			byte[] buf = new byte[1024];
 			int len;
-			while ((len=in.read(buf)) >0) {
+			while ((len=in.read(buf)) > 0) {
 				out.write(buf,0,len);
 			}
 			out.close();

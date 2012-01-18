@@ -7,7 +7,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.entity.Player;
-import org.bukkit.ChatColor;
 
 /**
  * GlowstoneDrop for CraftBukkit/Bukkit
@@ -72,7 +71,7 @@ public class GlowstoneDropBlockListener extends BlockListener {
 	// Sends a message
 	public void message(Player player) {
 		if (plugin.config.getBoolean("configuration.messages") == true) {
-			player.sendMessage(ChatColor.DARK_RED + "You don't have the permission to use GlowstoneDrop! Dropping dust instead!");
+			player.sendMessage(plugin.localization.getString("permission_denied").replaceAll("&([0-9a-f])", "\u00A7$1"));
 		}
 	}
 

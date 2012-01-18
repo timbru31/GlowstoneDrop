@@ -1,8 +1,9 @@
 package de.xghostkillerx.glowstonedrop;
 
+import java.util.Arrays;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
 
 /**
@@ -25,6 +26,9 @@ public class GlowstoneDropCommands {
 	public GlowstoneDropCommands(GlowstoneDrop instance) {
 		plugin = instance;
 	}
+	String[] worlds = {"normal", "nether", "end"}, values = {"block", "dust"};
+	String message;
+	int i;
 
 	// Commands; always check for permissions!
 	public boolean GlowstoneDropCommand (CommandSender sender, Command command, String commandLabel, String[] args) {
@@ -37,7 +41,8 @@ public class GlowstoneDropCommands {
 						return true;
 					}
 					else {
-						sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
+						message = plugin.localization.getString("permission_denied");
+						message(sender, message);
 						return true;
 					}
 				}
@@ -54,7 +59,8 @@ public class GlowstoneDropCommands {
 						return true;
 					}
 					else {
-						sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
+						message = plugin.localization.getString("permission_denied");
+						message(sender, message);
 						return true;
 					}
 				}
@@ -64,143 +70,43 @@ public class GlowstoneDropCommands {
 				}
 			}
 			// set
-			if (args.length > 0 && args[0].equalsIgnoreCase("set")) {
-				// normal
-				if (args.length > 1 && args[1].equalsIgnoreCase("normal")) {
-					// block
-					if (args.length > 2 && args[2].equalsIgnoreCase("block")) {
+			if (args.length > 2 && args[0].equalsIgnoreCase("set")) {
+				String world = args[1], value = args[2];
+				if (Arrays.asList(worlds).contains(args[1])) {
+					if (Arrays.asList(values).contains(args[2])) {
 						if (plugin.config.getBoolean("configuration.permissions") == true) {
 							if (sender.hasPermission("glowstonedrop.set.normal")) {
-								GlowstoneDropNormalBlock(sender, args);
-								return true;
-							} else {
-								sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
+								GlowstoneDropSet(sender, args, world, value);
+							}
+							else {
+								message = plugin.localization.getString("permission_denied");
+								message(sender, message);
 								return true;
 							}
 						}
 						if (plugin.config.getBoolean("configuration.permissions") == false) {
-							GlowstoneDropNormalBlock(sender, args);
-							return true;
-						}
-					}
-					// dust
-					if (args.length > 2 && args[2].equalsIgnoreCase("dust")) {
-						if (plugin.config.getBoolean("configuration.permissions") == true) {
-							if (sender.hasPermission("glowstonedrop.set.normal")) {
-								GlowstoneDropNormalDust(sender, args);
-								return true;
-							} else {
-								sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
-								return true;
-							}
-						}
-						if (plugin.config.getBoolean("configuration.permissions") == false) {
-							GlowstoneDropNormalDust(sender, args);
-							return true;
-						}
-					}
-				}
-				// nether
-				if (args.length > 1 && args[1].equalsIgnoreCase("nether")) {
-					// block
-					if (args.length > 2 && args[2].equalsIgnoreCase("block")) {
-						if (plugin.config.getBoolean("configuration.permissions") == true) {
-							if (sender.hasPermission("glowstonedrop.set.nether")) {
-								GlowstoneDropNetherBlock(sender, args);
-								return true;
-							} else {
-								sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
-								return true;
-							}
-						}
-						if (plugin.config.getBoolean("configuration.permissions") == false) {
-							GlowstoneDropNetherBlock(sender, args);
-							return true;
-						}
-					}
-					// dust
-					if (args.length > 2 && args[2].equalsIgnoreCase("dust")) {
-						if (plugin.config.getBoolean("configuration.permissions") == true) {
-							if (sender.hasPermission("glowstonedrop.set.nether")) {
-								GlowstoneDropNetherDust(sender, args);
-								return true;
-							} else {
-								sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
-								return true;
-							}
-						}
-						if (plugin.config.getBoolean("configuration.permissions") == false) {
-							GlowstoneDropNetherDust(sender, args);
-							return true;
-						}
-					}
-				}
-				// The End
-				if (args.length > 1 && args[1].equalsIgnoreCase("end")) {
-					// block
-					if (args.length > 2 && args[2].equalsIgnoreCase("block")) {
-						if (plugin.config.getBoolean("configuration.permissions") == true) {
-							if (sender.hasPermission("glowstonedrop.set.end")) {
-								GlowstoneDropEndBlock(sender, args);
-								return true;
-							} else {
-								sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
-								return true;
-							}
-						}
-						if (plugin.config.getBoolean("configuration.permissions") == false) {
-							GlowstoneDropEndBlock(sender, args);
-							return true;
-						}
-					}
-					// dust
-					if (args.length > 2 && args[2].equalsIgnoreCase("dust")) {
-						if (plugin.config.getBoolean("configuration.permissions") == true) {
-							if (sender.hasPermission("glowstonedrop.set.end")) {
-								GlowstoneDropEndDust(sender, args);
-								return true;
-							} else {
-								sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
-								return true;
-							}
-						}
-						if (plugin.config.getBoolean("configuration.permissions") == false) {
-							GlowstoneDropEndDust(sender, args);
+							GlowstoneDropSet(sender, args, world, value);
 							return true;
 						}
 					}
 				}
 				// all
-				if (args.length > 1 && args[1].equalsIgnoreCase("all")) {
+				if (args.length > 2 && args[1].equalsIgnoreCase("all")) {
 					// block
-					if (args.length > 2 && args[2].equalsIgnoreCase("block")) {
+					if (Arrays.asList(values).contains(args[2])) {
 						if (plugin.config.getBoolean("configuration.permissions") == true) {
 							if (sender.hasPermission("glowstonedrop.set.all")) {
-								GlowstoneDropAllBlock(sender, args);
+								GlowstoneDropSetAll(sender, args, value);
 								return true;
-							} else {
-								sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
+							}
+							else {
+								message = plugin.localization.getString("permission_denied");
+								message(sender, message);
 								return true;
 							}
 						}
 						if (plugin.config.getBoolean("configuration.permissions") == false) {
-							GlowstoneDropAllBlock(sender, args);
-							return true;
-						}
-					}
-					// dust
-					if (args.length > 2 && args[2].equalsIgnoreCase("dust")) {
-						if (plugin.config.getBoolean("configuration.permissions") == true) {
-							if (sender.hasPermission("glowstonedrop.set.all")) {
-								GlowstoneDropAllDust(sender, args);
-								return true;
-							} else {
-								sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
-								return true;
-							}
-						}
-						if (plugin.config.getBoolean("configuration.permissions") == false) {
-							GlowstoneDropAllDust(sender, args);
+							GlowstoneDropSetAll(sender, args, value);
 							return true;
 						}
 					}
@@ -214,8 +120,10 @@ public class GlowstoneDropCommands {
 						if (sender.hasPermission("glowstonedrop.enable.permissions")) {
 							GlowstoneDropEnablePermissions(sender, args);
 							return true;
-						} else {
-							sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
+						}
+						else {
+							message = plugin.localization.getString("permission_denied");
+							message(sender, message);
 							return true;
 						}
 					}
@@ -230,8 +138,10 @@ public class GlowstoneDropCommands {
 						if (sender.hasPermission("glowstonedrop.enable.messages")) {
 							GlowstoneDropEnableMessages(sender, args);
 							return true;
-						} else {
-							sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
+						}
+						else {
+							message = plugin.localization.getString("permission_denied");
+							message(sender, message);
 							return true;
 						}
 					}
@@ -250,7 +160,8 @@ public class GlowstoneDropCommands {
 							GlowstoneDropDisablePermissions(sender, args);
 							return true;
 						} else {
-							sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
+							message = plugin.localization.getString("permission_denied");
+							message(sender, message);
 							return true;
 						}
 					}
@@ -266,7 +177,8 @@ public class GlowstoneDropCommands {
 							GlowstoneDropDisableMessages(sender, args);
 							return true;
 						} else {
-							sender.sendMessage(ChatColor.DARK_RED + "You don't have the permission to do this!");
+							message = plugin.localization.getString("permission_denied");
+							message(sender, message);
 							return true;
 						}
 					}
@@ -280,29 +192,49 @@ public class GlowstoneDropCommands {
 		return false;
 	}
 
+	private void message(CommandSender sender, String message2) {
+		PluginDescriptionFile pdfFile = plugin.getDescription();
+		sender.sendMessage(message
+				.replaceAll("&([0-9a-f])", "\u00A7$1")
+				.replaceAll("%version", pdfFile.getVersion()));
+	}
+
+	private void message(CommandSender sender, String world, String value, String message) {
+		sender.sendMessage(message
+				.replaceAll("&([0-9a-f])", "\u00A7$1")
+				.replaceAll("%world", world)
+				.replaceAll("%value", value));
+	}
+	
+
+	private void message(CommandSender sender, String message, String value) {
+		sender.sendMessage(message
+				.replaceAll("&([0-9a-f])", "\u00A7$1")
+				.replaceAll("%value", value));
+	}
+
+	private void GlowstoneDropSet(CommandSender sender, String[] args, String world, String value) {
+		plugin.config.set("worlds." + world.toLowerCase(), value.toLowerCase());
+		plugin.saveConfig();
+		message = plugin.localization.getString("set");
+		message(sender, world, value, message);
+
+	}
+
 	// See the help with /glowstonedrop help or /glowdrop help
 	private boolean GlowstoneDropHelp(CommandSender sender, String[] args) {
-		PluginDescriptionFile pdfFile = plugin.getDescription();
-		sender.sendMessage(ChatColor.DARK_GREEN	+ "Welcome to the GlowstoneDrop version " + ChatColor.DARK_RED + pdfFile.getVersion() + ChatColor.DARK_GREEN + " help!");
-		sender.sendMessage("To see the help type " + ChatColor.DARK_RED	+ "/glowstonedrop help " + ChatColor.WHITE + "or " + ChatColor.DARK_RED	+ "/glowdrop help");
-		sender.sendMessage("To reload use " + ChatColor.DARK_RED + "/glowstonedrop reload " + ChatColor.WHITE + "or " + ChatColor.DARK_RED + "/glowdrop reload");
-		sender.sendMessage("To change the drops use " + ChatColor.DARK_RED + "/glowstonedrop set <world> <drop>");
-		sender.sendMessage("or " + ChatColor.DARK_RED + "/glowdrop set <world> <drop>");
-		sender.sendMessage("To enable something use " + ChatColor.DARK_RED + "/glowstonedrop enable " + ChatColor.YELLOW + "<value>");
-		sender.sendMessage("or " + ChatColor.DARK_RED + "/glowdrop enable " + ChatColor.YELLOW + "<value>");
-		sender.sendMessage("To disable something use " + ChatColor.DARK_RED	+ "/glowstonedrop disable " + ChatColor.YELLOW + "<value>");
-		sender.sendMessage("or " + ChatColor.DARK_RED + "/glowdrop disable " + ChatColor.YELLOW + "<value>");
-		sender.sendMessage(ChatColor.YELLOW + "Values " + ChatColor.WHITE + "can be: permissions, messages");
-		sender.sendMessage(ChatColor.YELLOW + "Worlds " + ChatColor.WHITE + "can be: normal, end, nether");
-		sender.sendMessage(ChatColor.YELLOW + "Drops " + ChatColor.WHITE + "can be: dust, block");
+		for (i=1; i <= 12; i++) {
+			message = plugin.localization.getString("help_" + Integer.toString(i));
+			message(sender, message);
+		}
 		return true;
 	}
 
 	// Reloads the config with /glowstonedrop reload or /glowdrop reload
 	private boolean GlowstoneDropReload(CommandSender sender, String[] args) {
-		PluginDescriptionFile pdfFile = plugin.getDescription();
 		plugin.loadConfigsAgain();
-		sender.sendMessage(ChatColor.DARK_GREEN + "GlowstoneDrop version " + ChatColor.DARK_RED + pdfFile.getVersion() + ChatColor.DARK_GREEN + " reloaded!");
+		message = plugin.localization.getString("reload");
+		message(sender, message);
 		return true;
 	}
 
@@ -310,8 +242,10 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropEnablePermissions(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.permissions", true);
 		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "GlowstoneDrop " + ChatColor.DARK_RED	+ "permissions " + ChatColor.DARK_GREEN	+ "enabled! Only OPs");
-		sender.sendMessage(ChatColor.DARK_GREEN + "or players with the permission can use the plugin!");
+		for (i=1; i <= 2; i++) {
+			message = plugin.localization.getString("enable_permissions_" + Integer.toString(i));
+			message(sender, message);
+		}
 		return true;
 	}
 
@@ -319,8 +253,10 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropDisablePermissions(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.permissions", false);
 		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "GlowstoneDrop " + ChatColor.DARK_RED + "permissions " + ChatColor.DARK_GREEN	+ "disabled!"); 
-		sender.sendMessage(ChatColor.DARK_GREEN + "All players can use the plugin!");
+		for (i=1; i <= 2; i++) {
+			message = plugin.localization.getString("disable_permissions_" + Integer.toString(i));
+			message(sender, message);
+		}
 		return true;
 	}
 
@@ -328,7 +264,8 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropEnableMessages(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.messages", true);
 		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "GlowstoneDrop " + ChatColor.DARK_RED	+ "messages " + ChatColor.DARK_GREEN + "enabled!");
+		message = plugin.localization.getString("enable_messages");
+		message(sender, message);
 		return true;
 	}
 
@@ -336,75 +273,20 @@ public class GlowstoneDropCommands {
 	private boolean GlowstoneDropDisableMessages(CommandSender sender, String[] args) {
 		plugin.config.set("configuration.messages", false);
 		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "GlowstoneDrop " + ChatColor.DARK_RED + "messages " + ChatColor.DARK_GREEN + "disabled!");
+		message = plugin.localization.getString("disable_messages");
+		message(sender, message);
 		return true;
 	}
 
-	// Sets the normal drop to dust with /glowstonedrop set normal dust or /glowdrop set normal dust
-	private boolean GlowstoneDropNormalDust(CommandSender sender, String[] args) {
-		plugin.config.set("worlds.normal", "dust");
-		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "normal worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "dust");
-		return true;
-	}
-
-	// Sets the nether drop to dust /glowstonedrop set nether dust or /glowdrop set nether dust
-	private boolean GlowstoneDropNetherDust(CommandSender sender, String[] args) {
-		plugin.config.set("worlds.nether", "dust");
-		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "nether worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "dust");
-		return true;
-	}
-
-	// Sets the the end drop to dust with /glowstonedrop set end dust or /glowdrop set end dust
-	private boolean GlowstoneDropEndDust(CommandSender sender, String[] args) {
-		plugin.config.set("worlds.end", "dust");
-		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "the end " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "dust");
-		return true;
-	}
 
 	// Sets the all drops to dust with /glowstonedrop set all dust or /glowdrop set all dust
-	private boolean GlowstoneDropAllDust(CommandSender sender, String[] args) {
-		plugin.config.set("worlds.normal", "dust");
-		plugin.config.set("worlds.nether", "dust");
-		plugin.config.set("worlds.end", "dust");
+	private boolean GlowstoneDropSetAll(CommandSender sender, String[] args, String value) {
+		plugin.config.set("worlds.normal", value.toLowerCase());
+		plugin.config.set("worlds.nether", value.toLowerCase());
+		plugin.config.set("worlds.end", value.toLowerCase());
 		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "all worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "dust");
-		return true;
-	}
-
-	// Sets the normal drop to block with /glowstone drop set normal block or /glowdrop set normal block
-	private boolean GlowstoneDropNormalBlock(CommandSender sender, String[] args) {
-		plugin.config.set("worlds.normal", "block");
-		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "normal worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "blocks");
-		return true;
-	}
-
-	// Sets the nether drop to block with /glowstone drop set nether block or /glowdrop set nether block
-	private boolean GlowstoneDropNetherBlock(CommandSender sender, String[] args) {
-		plugin.config.set("worlds.nether", "block");
-		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "nether worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "blocks");
-		return true;
-	}
-
-	// Sets the skyland drop to block with /glowstone drop set end block or /glowdrop set end block
-	private boolean GlowstoneDropEndBlock(CommandSender sender, String[] args) {
-		plugin.config.set("worlds.end", "block");
-		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "the end " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "blocks");
-		return true;
-	}
-
-	// Sets the all drops to block with /glowstone drop set all block or /glowdrop set all block
-	private boolean GlowstoneDropAllBlock(CommandSender sender, String[] args) {
-		plugin.config.set("worlds.normal", "block");
-		plugin.config.set("worlds.nether", "block");
-		plugin.config.set("worlds.end", "block");
-		plugin.saveConfig();
-		sender.sendMessage(ChatColor.DARK_GREEN + "Drop for " + ChatColor.DARK_RED	+ "all worlds " + ChatColor.DARK_GREEN + "set to " + ChatColor.DARK_RED	+ "blocks");
+		message = plugin.localization.getString("set_all");
+		message(sender, message, value);
 		return true;
 	}
 }
