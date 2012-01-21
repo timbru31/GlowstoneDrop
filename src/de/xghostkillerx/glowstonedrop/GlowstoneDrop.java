@@ -18,17 +18,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.configuration.file.*;
 
 /**
- * GlowstoneDrop for CraftBukkit/Bukkit
- * Handles some general stuff!
- * 
+ * GlowstoneDrop for CraftBukkit/Bukkit Handles some general stuff!
  * Refer to the forum thread:
  * http://bit.ly/oW6iR1
- * Refer to the dev.bukkit.org page:
- * http://bit.ly/rcN2QB
- *
- * @author xGhOsTkiLLeRx
- * @thanks to XxFuNxX for the original GlowstoneDrop plugin!
+ * Refer to the dev.bukkit.org page: http://bit.ly/rcN2QB
  * 
+ * @author  xGhOsTkiLLeRx
+ * @thanks  to XxFuNxX for the original GlowstoneDrop plugin!
  */
 
 public class GlowstoneDrop extends JavaPlugin {
@@ -39,8 +35,8 @@ public class GlowstoneDrop extends JavaPlugin {
 	public FileConfiguration localization;
 	public File configFile;
 	public File localizationFile;
-	List<String> itemList = new ArrayList<String>();
-	String[] items = {"WOOD_PICKAXE", "STONE_PICKAXE", "IRON_PICKAXE", "GOLD_PICKAXE", "DIAMOND_PICKAXE"};
+	public List<String> itemList = new ArrayList<String>();
+	private String[] items = {"WOOD_PICKAXE", "STONE_PICKAXE", "IRON_PICKAXE", "GOLD_PICKAXE", "DIAMOND_PICKAXE"};
 
 	// Shutdown
 	public void onDisable() {

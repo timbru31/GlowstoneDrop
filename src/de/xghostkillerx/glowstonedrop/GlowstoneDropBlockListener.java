@@ -9,27 +9,23 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.entity.Player;
 
 /**
- * GlowstoneDrop for CraftBukkit/Bukkit
- * Handles the block stuff!
- * 
+ * GlowstoneDrop for CraftBukkit/Bukkit Handles the block stuff!
  * Refer to the forum thread:
  * http://bit.ly/oW6iR1
  * Refer to the dev.bukkit.org page:
  * http://bit.ly/rcN2QB
- *
- * @author xGhOsTkiLLeRx
- * @thanks to XxFuNxX for the original GlowstoneDrop plugin!
  * 
+ * @author  xGhOsTkiLLeRx
+ * @thanks  to XxFuNxX for the original GlowstoneDrop plugin!
  */
 
 public class GlowstoneDropBlockListener extends BlockListener {
-
 	public static GlowstoneDrop plugin;
 	public GlowstoneDropBlockListener(GlowstoneDrop instance) {
 		plugin = instance;
 	}
-	public boolean message = true;
-	String[] worlds = {"normal", "nether", "end"};
+	private boolean message = true;
+	private String[] worlds = {"normal", "nether", "end"};
 
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
@@ -63,13 +59,13 @@ public class GlowstoneDropBlockListener extends BlockListener {
 	}
 
 	// Drop the block
-	public void dropBlock(BlockBreakEvent event) {
+	private void dropBlock(BlockBreakEvent event) {
 		event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(89, 1));
 		event.getBlock().setType(Material.AIR);
 	}
 
 	// Sends a message
-	public void message(Player player) {
+	private void message(Player player) {
 		if (plugin.config.getBoolean("configuration.messages") == true) {
 			player.sendMessage(plugin.localization.getString("permission_denied").replaceAll("&([0-9a-f])", "\u00A7$1"));
 		}
