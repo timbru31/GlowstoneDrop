@@ -9,9 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Logger;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.event.Event;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,7 +26,7 @@ import org.bukkit.configuration.file.*;
 
 public class GlowstoneDrop extends JavaPlugin {
 
-	public static final Logger log = Logger.getLogger("Minecraft");
+	public final Logger log = Logger.getLogger("Minecraft");
 	private final GlowstoneDropBlockListener blockListener = new GlowstoneDropBlockListener(this);
 	public FileConfiguration config;
 	public FileConfiguration localization;
@@ -37,6 +34,7 @@ public class GlowstoneDrop extends JavaPlugin {
 	public File localizationFile;
 	public List<String> itemList = new ArrayList<String>();
 	private String[] items = {"WOOD_PICKAXE", "STONE_PICKAXE", "IRON_PICKAXE", "GOLD_PICKAXE", "DIAMOND_PICKAXE"};
+	private GlowstoneDropCommands executor;
 
 	// Shutdown
 	public void onDisable() {
@@ -48,7 +46,11 @@ public class GlowstoneDrop extends JavaPlugin {
 	public void onEnable() {
 		// Events
 		PluginManager pm = getServer().getPluginManager();
-		pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener,	Event.Priority.Normal, this);
+		pm.registerEvents(blockListener, this);
+
+		// Refer to GlowstoneDropCommands
+		executor = new GlowstoneDropCommands(this);
+		getCommand("glowstonedrop").setExecutor(executor);
 
 		// Config
 		configFile = new File(getDataFolder(), "config.yml");
@@ -58,13 +60,13 @@ public class GlowstoneDrop extends JavaPlugin {
 		}
 		config = this.getConfig();
 		loadConfig();
-		
+
 		// Localization
 		localizationFile = new File(getDataFolder(), "localization.yml");
 		if(!localizationFile.exists()){
-	        localizationFile.getParentFile().mkdirs();
-	        copy(getResource("localization.yml"), localizationFile);
-	    }
+			localizationFile.getParentFile().mkdirs();
+			copy(getResource("localization.yml"), localizationFile);
+		}
 		// Try to load
 		try {
 			localization = YamlConfiguration.loadConfiguration(localizationFile);
@@ -82,6 +84,21 @@ public class GlowstoneDrop extends JavaPlugin {
 		// Stats
 		try {
 			Metrics metrics = new Metrics();
+			// Custom plotter for each item
+			for (int i = 0; i < itemList.size(); i++) {
+				final String itemName = itemList.get(i);
+				metrics.addCustomData(this, new Metrics.Plotter() {
+					@Override
+					public String getColumnName() {
+						return itemName;
+					}
+
+					@Override
+					public int getValue() {
+						return 1;
+					}
+				});
+			}
 			metrics.beginMeasuringPlugin(this);
 		}
 		catch (IOException e) {}
@@ -100,7 +117,7 @@ public class GlowstoneDrop extends JavaPlugin {
 		config.options().copyDefaults(true);
 		saveConfig();
 	}
-	
+
 	// Loads the localization
 	public void loadLocalization() {
 		localization.options().header("The underscores are used for the different lines!");
@@ -128,9 +145,9 @@ public class GlowstoneDrop extends JavaPlugin {
 		localization.addDefault("help_12", "&eDrops &fcan be: dust, block");
 		localization.options().copyDefaults(true);
 		saveLocalization();
-		
+
 	}
-	
+
 	// Saves the localization
 	public void saveLocalization() {
 		try {
@@ -139,7 +156,7 @@ public class GlowstoneDrop extends JavaPlugin {
 			log.warning("GlowstoneDrop failed to save the localization! Please report this!");
 		}
 	}
-	
+
 	// Reloads the config via command /glowstonedrop reload or /glowdrop reload
 	public void loadConfigsAgain() {
 		try {
@@ -168,11 +185,5 @@ public class GlowstoneDrop extends JavaPlugin {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	// Refer to GlowstoneDropCommands
-	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
-		GlowstoneDropCommands cmd = new GlowstoneDropCommands(this);
-		return cmd.GlowstoneDropCommand(sender, command, commandLabel, args);
 	}
 }

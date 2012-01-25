@@ -3,8 +3,9 @@ package de.xghostkillerx.glowstonedrop;
 import java.util.Arrays;
 
 import org.bukkit.Material;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockListener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.entity.Player;
 
@@ -19,15 +20,16 @@ import org.bukkit.entity.Player;
  * @thanks  to XxFuNxX for the original GlowstoneDrop plugin!
  */
 
-public class GlowstoneDropBlockListener extends BlockListener {
-	public static GlowstoneDrop plugin;
+public class GlowstoneDropBlockListener implements Listener {
+	public GlowstoneDrop plugin;
 	public GlowstoneDropBlockListener(GlowstoneDrop instance) {
 		plugin = instance;
 	}
 	private boolean message = true;
 	private String[] worlds = {"normal", "nether", "end"};
 
-	public void onBlockBreak(BlockBreakEvent event) {
+	@EventHandler
+	public void onBlockBreak(final BlockBreakEvent event) {
 		Player player = event.getPlayer();
 		String enviroment = event.getBlock().getWorld().getEnvironment().toString().toLowerCase();
 		// Check for the item in hand and if it's on the list
@@ -84,7 +86,7 @@ public class GlowstoneDropBlockListener extends BlockListener {
 			catch (Exception e) {
 				// Prevent spamming
 				if (message == true) {
-					GlowstoneDrop.log.warning("GlowstoneDrop couldn't load the items! Please check your config!");
+					plugin.log.warning("GlowstoneDrop couldn't load the items! Please check your config!");
 					message = false;
 				}
 			}
