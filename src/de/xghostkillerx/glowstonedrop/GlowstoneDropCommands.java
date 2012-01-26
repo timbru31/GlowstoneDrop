@@ -165,14 +165,14 @@ public class GlowstoneDropCommands implements CommandExecutor {
 	private void message(CommandSender sender, String message) {
 		PluginDescriptionFile pdfFile = plugin.getDescription();
 		sender.sendMessage(message
-				.replaceAll("&([0-9a-f])", "\u00A7$1")
+				.replaceAll("&([0-9a-fk])", "\u00A7$1")
 				.replaceAll("%version", pdfFile.getVersion()));
 	}
 
 	// Message the sender
 	private void message(CommandSender sender, String world, String value, String message) {
 		sender.sendMessage(message
-				.replaceAll("&([0-9a-f])", "\u00A7$1")
+				.replaceAll("&([0-9a-fk])", "\u00A7$1")
 				.replaceAll("%world", world)
 				.replaceAll("%value", value));
 	}
@@ -180,7 +180,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 	// Message the sender
 	private void message(CommandSender sender, String message, String value) {
 		sender.sendMessage(message
-				.replaceAll("&([0-9a-f])", "\u00A7$1")
+				.replaceAll("&([0-9a-fk])", "\u00A7$1")
 				.replaceAll("%value", value));
 	}
 
