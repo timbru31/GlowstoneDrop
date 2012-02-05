@@ -12,7 +12,9 @@ import java.util.logging.Logger;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.*;
+import org.bukkit.entity.Player;
 
 /**
  * GlowstoneDrop for CraftBukkit/Bukkit Handles some general stuff!
@@ -122,7 +124,7 @@ public class GlowstoneDrop extends JavaPlugin {
 	public void loadLocalization() {
 		localization.options().header("The underscores are used for the different lines!");
 		localization.addDefault("permission_denied", "&4You don''t have the permission to do this!");
-		localization.addDefault("set", "&2Drop for in the &4%world &2worlds changed to &4%value&2!");
+		localization.addDefault("set", "&2Drop in the &4%world &2worlds changed to &4%value&2!");
 		localization.addDefault("set_all", "&2Drop for all worlds changed to &4%value&2!");
 		localization.addDefault("reload", "&2GlowstoneDrop &4%version &2reloaded!");
 		localization.addDefault("enable_messages", "&2GlowstoneDrop &4messages &2enabled!");
@@ -168,6 +170,22 @@ public class GlowstoneDrop extends JavaPlugin {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	// Message the sender or player
+	public void message(CommandSender sender, Player player, String message, String value, String world) {
+		PluginDescriptionFile pdfFile = this.getDescription();
+		message = message
+				.replaceAll("&([0-9a-fk])", "\u00A7$1")
+				.replaceAll("%version", pdfFile.getVersion())
+				.replaceAll("%world", world)
+				.replaceAll("%value", value);
+		if (player != null) {
+			player.sendMessage(message);
+		}
+		else if (sender != null) {
+			sender.sendMessage(message);
 		}
 	}
 

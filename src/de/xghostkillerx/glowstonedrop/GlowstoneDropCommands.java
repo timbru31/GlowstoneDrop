@@ -5,7 +5,6 @@ import java.util.Arrays;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.PluginDescriptionFile;
 
 /**
  * GlowstoneDrop for CraftBukkit/Bukkit Handles the commands!
@@ -40,7 +39,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 				}
 				else {
 					message = plugin.localization.getString("permission_denied");
-					message(sender, message);
+					plugin.message(sender, null, message, null, null);
 					return true;
 				}
 			}
@@ -58,7 +57,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 				}
 				else {
 					message = plugin.localization.getString("permission_denied");
-					message(sender, message);
+					plugin.message(sender, null, message, null, null);
 					return true;
 				}
 			}
@@ -78,7 +77,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 						}
 						else {
 							message = plugin.localization.getString("permission_denied");
-							message(sender, message);
+							plugin.message(sender, null, message, null, null);
 							return true;
 						}
 					}
@@ -99,7 +98,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 						}
 						else {
 							message = plugin.localization.getString("permission_denied");
-							message(sender, message);
+							plugin.message(sender, null, message, null, null);
 							return true;
 						}
 					}
@@ -123,7 +122,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 						}
 						else {
 							message = plugin.localization.getString("permission_denied");
-							message(sender, message);
+							plugin.message(sender, null, message, null, null);
 							return true;
 						}
 					}
@@ -147,7 +146,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 						}
 						else {
 							message = plugin.localization.getString("permission_denied");
-							message(sender, message);
+							plugin.message(sender, null, message, null, null);
 							return true;
 						}
 					}
@@ -161,35 +160,12 @@ public class GlowstoneDropCommands implements CommandExecutor {
 		return true;
 	}
 
-	// Message the sender
-	private void message(CommandSender sender, String message) {
-		PluginDescriptionFile pdfFile = plugin.getDescription();
-		sender.sendMessage(message
-				.replaceAll("&([0-9a-fk])", "\u00A7$1")
-				.replaceAll("%version", pdfFile.getVersion()));
-	}
-
-	// Message the sender
-	private void message(CommandSender sender, String world, String value, String message) {
-		sender.sendMessage(message
-				.replaceAll("&([0-9a-fk])", "\u00A7$1")
-				.replaceAll("%world", world)
-				.replaceAll("%value", value));
-	}
-
-	// Message the sender
-	private void message(CommandSender sender, String message, String value) {
-		sender.sendMessage(message
-				.replaceAll("&([0-9a-fk])", "\u00A7$1")
-				.replaceAll("%value", value));
-	}
-
-	// Message the sender
+	// Set a value
 	private void GlowstoneDropSet(CommandSender sender, String world, String value) {
 		plugin.config.set("worlds." + world.toLowerCase(), value.toLowerCase());
 		plugin.saveConfig();
 		message = plugin.localization.getString("set");
-		message(sender, world, value, message);
+		plugin.message(sender, null, message, value, world);
 
 	}
 
@@ -197,7 +173,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 	private boolean GlowstoneDropHelp(CommandSender sender) {
 		for (i=1; i <= 12; i++) {
 			message = plugin.localization.getString("help_" + Integer.toString(i));
-			message(sender, message);
+			plugin.message(sender, null, message, null, null);
 		}
 		return true;
 	}
@@ -206,7 +182,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 	private boolean GlowstoneDropReload(CommandSender sender) {
 		plugin.loadConfigsAgain();
 		message = plugin.localization.getString("reload");
-		message(sender, message);
+		plugin.message(sender, null, message, null, null);
 		return true;
 	}
 
@@ -217,12 +193,12 @@ public class GlowstoneDropCommands implements CommandExecutor {
 		if (value.equalsIgnoreCase("permissions")) {
 			for (i=1; i <= 2; i++) {
 				message = plugin.localization.getString("enable_permissions_" + Integer.toString(i));
-				message(sender, message);
+				plugin.message(sender, null, message, null, null);
 			}
 		}
 		else {
 			message = plugin.localization.getString("enable_messages");
-			message(sender, message);
+			plugin.message(sender, null, message, null, null);
 		}
 		return true;
 	}
@@ -234,12 +210,12 @@ public class GlowstoneDropCommands implements CommandExecutor {
 		if (value.equalsIgnoreCase("permissions")) {
 			for (i=1; i <= 2; i++) {
 				message = plugin.localization.getString("disable_permissions_" + Integer.toString(i));
-				message(sender, message);
+				plugin.message(sender, null, message, null, null);
 			}
 		}
 		else {
 			message = plugin.localization.getString("disable_messages");
-			message(sender, message);
+			plugin.message(sender, null, message, null, null);
 		}
 		return true;
 	}
@@ -252,7 +228,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 		plugin.config.set("worlds.end", value.toLowerCase());
 		plugin.saveConfig();
 		message = plugin.localization.getString("set_all");
-		message(sender, message, value);
+		plugin.message(sender, null, message, value, null);
 		return true;
 	}
 }

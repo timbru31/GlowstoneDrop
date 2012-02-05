@@ -69,7 +69,8 @@ public class GlowstoneDropBlockListener implements Listener {
 	// Sends a message
 	private void message(Player player) {
 		if (plugin.config.getBoolean("configuration.messages") == true) {
-			player.sendMessage(plugin.localization.getString("permission_denied").replaceAll("&([0-9a-fk])", "\u00A7$1"));
+			String msg = plugin.localization.getString("permission_denied");
+			plugin.message(null, player, msg, null, null);
 		}
 	}
 
