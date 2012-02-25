@@ -50,10 +50,6 @@ public class GlowstoneDrop extends JavaPlugin {
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(blockListener, this);
 
-		// Refer to GlowstoneDropCommands
-		executor = new GlowstoneDropCommands(this);
-		getCommand("glowstonedrop").setExecutor(executor);
-
 		// Config
 		configFile = new File(getDataFolder(), "config.yml");
 		if (!configFile.exists()) {
@@ -78,6 +74,10 @@ public class GlowstoneDrop extends JavaPlugin {
 		catch (Exception e) {
 			log.warning("GlowstoneDrop failed to load the localization!");
 		}
+		
+		// Refer to GlowstoneDropCommands
+		executor = new GlowstoneDropCommands(this);
+		getCommand("glowstonedrop").setExecutor(executor);
 
 		// Message
 		PluginDescriptionFile pdfFile = this.getDescription();
@@ -154,7 +154,8 @@ public class GlowstoneDrop extends JavaPlugin {
 	public void saveLocalization() {
 		try {
 			localization.save(localizationFile);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			log.warning("GlowstoneDrop failed to save the localization! Please report this!");
 		}
 	}
@@ -200,7 +201,8 @@ public class GlowstoneDrop extends JavaPlugin {
 			}
 			out.close();
 			in.close();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

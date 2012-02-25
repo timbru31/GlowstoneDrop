@@ -157,7 +157,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 
 	// Set a value
