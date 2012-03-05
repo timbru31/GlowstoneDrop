@@ -170,24 +170,22 @@ public class GlowstoneDropCommands implements CommandExecutor {
 	}
 
 	// See the help with /glowstonedrop help or /glowdrop help
-	private boolean GlowstoneDropHelp(CommandSender sender) {
+	private void GlowstoneDropHelp(CommandSender sender) {
 		for (i=1; i <= 12; i++) {
 			message = plugin.localization.getString("help_" + Integer.toString(i));
 			plugin.message(sender, null, message, null, null);
 		}
-		return true;
 	}
 
 	// Reloads the config with /glowstonedrop reload or /glowdrop reload
-	private boolean GlowstoneDropReload(CommandSender sender) {
+	private void GlowstoneDropReload(CommandSender sender) {
 		plugin.loadConfigsAgain();
 		message = plugin.localization.getString("reload");
 		plugin.message(sender, null, message, null, null);
-		return true;
 	}
 
 	// Enables permissions with /glowstonedrop enable <value> or /glowdrop enable <value>
-	private boolean GlowstoneDropEnable(CommandSender sender, String value) {
+	private void GlowstoneDropEnable(CommandSender sender, String value) {
 		plugin.config.set("configuration." + value, true);
 		plugin.saveConfig();
 		if (value.equalsIgnoreCase("permissions")) {
@@ -200,11 +198,10 @@ public class GlowstoneDropCommands implements CommandExecutor {
 			message = plugin.localization.getString("enable_messages");
 			plugin.message(sender, null, message, null, null);
 		}
-		return true;
 	}
 
 	// Disables messages with /glowstonedrop disable <value> or /glowdrop disable <value>
-	private boolean GlowstoneDropDisable(CommandSender sender, String value) {
+	private void GlowstoneDropDisable(CommandSender sender, String value) {
 		plugin.config.set("configuration." + value, false);
 		plugin.saveConfig();
 		if (value.equalsIgnoreCase("permissions")) {
@@ -217,18 +214,16 @@ public class GlowstoneDropCommands implements CommandExecutor {
 			message = plugin.localization.getString("disable_messages");
 			plugin.message(sender, null, message, null, null);
 		}
-		return true;
 	}
 
 
 	// Sets the all drops to dust with /glowstonedrop set all dust or /glowdrop set all dust
-	private boolean GlowstoneDropSetAll(CommandSender sender, String value) {
+	private void GlowstoneDropSetAll(CommandSender sender, String value) {
 		plugin.config.set("worlds.normal", value.toLowerCase());
 		plugin.config.set("worlds.nether", value.toLowerCase());
 		plugin.config.set("worlds.end", value.toLowerCase());
 		plugin.saveConfig();
 		message = plugin.localization.getString("set_all");
 		plugin.message(sender, null, message, value, null);
-		return true;
 	}
 }
