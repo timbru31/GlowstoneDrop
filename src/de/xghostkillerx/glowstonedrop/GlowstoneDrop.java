@@ -87,9 +87,9 @@ public class GlowstoneDrop extends JavaPlugin {
 		
 		// Stats
 		try {
-			Metrics metrics = new Metrics();
+			Metrics metrics = new Metrics(this);
 			// Construct a graph, which can be immediately used and considered as valid
-			Graph graph = metrics.createGraph(this, Graph.Type.Pie, "Percentage of affected items");
+			Graph graph = metrics.createGraph("Percentage of affected items");
 			// Custom plotter for each item
 			for (int i = 0; i < itemList.size(); i++) {
 				final String itemName = itemList.get(i);
@@ -101,7 +101,7 @@ public class GlowstoneDrop extends JavaPlugin {
 				});
 
 			}
-			metrics.beginMeasuringPlugin(this);
+			metrics.start();
 		}
 		catch (IOException e) {}
 	}
