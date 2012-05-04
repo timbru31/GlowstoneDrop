@@ -178,7 +178,7 @@ public class GlowstoneDrop extends JavaPlugin {
 	public void message(CommandSender sender, Player player, String message, String value, String world) {
 		PluginDescriptionFile pdfFile = this.getDescription();
 		message = message
-				.replaceAll("&([0-9a-fk])", "\u00A7$1")
+				.replaceAll("&([0-9a-fk-or])", "\u00A7$1")
 				.replaceAll("%version", pdfFile.getVersion())
 				.replaceAll("%world", world)
 				.replaceAll("%value", value);

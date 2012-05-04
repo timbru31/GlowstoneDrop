@@ -2,6 +2,7 @@ package de.xghostkillerx.glowstonedrop;
 
 import java.util.Arrays;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,7 +30,7 @@ public class GlowstoneDropBlockListener implements Listener {
 	private String[] worlds = {"normal", "nether", "end"};
 
 	@EventHandler
-	public void onBlockBreak(final BlockBreakEvent event) {
+	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
 		String enviroment = event.getBlock().getWorld().getEnvironment().toString().toLowerCase();
 		// Check for the item in hand and if it's on the list
@@ -41,7 +42,7 @@ public class GlowstoneDropBlockListener implements Listener {
 					// Block
 					if (plugin.config.getString("worlds." + enviroment).equalsIgnoreCase("block")) {
 						if (player.hasPermission("glowstonedrop.use." + enviroment)) {
-							dropBlock(event);
+							if (player.getGameMode() != GameMode.CREATIVE) dropBlock(event);
 						} else {
 							message(player);
 						}
@@ -53,7 +54,7 @@ public class GlowstoneDropBlockListener implements Listener {
 				if (Arrays.asList(worlds).contains(enviroment)) {
 					// Block
 					if (plugin.config.getString("worlds." + enviroment).equalsIgnoreCase("block")) {
-						dropBlock(event);
+						if (player.getGameMode() != GameMode.CREATIVE) dropBlock(event);
 					}
 				}
 			}
