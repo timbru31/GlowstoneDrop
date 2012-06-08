@@ -1,4 +1,4 @@
-package de.xghostkillerx.glowstonedrop;
+package de.dustplanet.glowstonedrop;
 
 import java.util.Arrays;
 

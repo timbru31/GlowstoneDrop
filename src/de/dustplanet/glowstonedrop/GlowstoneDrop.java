@@ -1,4 +1,4 @@
-package de.xghostkillerx.glowstonedrop;
+package de.dustplanet.glowstonedrop;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +16,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.*;
 import org.bukkit.entity.Player;
 
-import de.xghostkillerx.glowstonedrop.Metrics.Graph;
+import de.dustplanet.glowstonedrop.Metrics.Graph;
 
 /**
  * GlowstoneDrop for CraftBukkit/Bukkit Handles some general stuff!

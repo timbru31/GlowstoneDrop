@@ -1,4 +1,4 @@
-package de.xghostkillerx.glowstonedrop;
+package de.dustplanet.glowstonedrop;
 
 /*
  * Copyright 2011 Tyler Blair. All rights reserved.
