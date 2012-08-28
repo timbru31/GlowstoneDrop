@@ -19,7 +19,8 @@ import org.bukkit.entity.Player;
 import de.dustplanet.glowstonedrop.Metrics.Graph;
 
 /**
- * GlowstoneDrop for CraftBukkit/Bukkit Handles some general stuff!
+ * GlowstoneDrop for CraftBukkit/Bukkit
+ * Handles some general stuff!
  * Refer to the forum thread:
  * http://bit.ly/oW6iR1
  * Refer to the dev.bukkit.org page: http://bit.ly/rcN2QB
@@ -29,26 +30,23 @@ import de.dustplanet.glowstonedrop.Metrics.Graph;
  */
 
 public class GlowstoneDrop extends JavaPlugin {
-
-	public final Logger log = Logger.getLogger("Minecraft");
-	private final GlowstoneDropBlockListener blockListener = new GlowstoneDropBlockListener(this);
-	public FileConfiguration config;
-	public FileConfiguration localization;
-	public File configFile;
-	public File localizationFile;
+	public Logger log = Logger.getLogger("Minecraft");
+	private GlowstoneDropBlockListener blockListener;
+	public FileConfiguration config, localization;
+	private File configFile, localizationFile;
 	public List<String> itemList = new ArrayList<String>();
 	private String[] items = {"WOOD_PICKAXE", "STONE_PICKAXE", "IRON_PICKAXE", "GOLD_PICKAXE", "DIAMOND_PICKAXE"};
 	private GlowstoneDropCommands executor;
 
 	// Shutdown
 	public void onDisable() {
-		PluginDescriptionFile pdfFile = this.getDescription();
-		log.info(pdfFile.getName() + " " + pdfFile.getVersion()	+ " has been disabled!");
+		itemList.clear();
 	}
 
 	// Start
 	public void onEnable() {
 		// Events
+		blockListener = new GlowstoneDropBlockListener(this);
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(blockListener, this);
 
@@ -67,23 +65,12 @@ public class GlowstoneDrop extends JavaPlugin {
 			localizationFile.getParentFile().mkdirs();
 			copy(getResource("localization.yml"), localizationFile);
 		}
-		// Try to load
-		try {
-			localization = YamlConfiguration.loadConfiguration(localizationFile);
-			loadLocalization();
-		}
-		// If it failed, tell it
-		catch (Exception e) {
-			log.warning("GlowstoneDrop failed to load the localization!");
-		}
+		localization = YamlConfiguration.loadConfiguration(localizationFile);
+		loadLocalization();
 		
 		// Refer to GlowstoneDropCommands
 		executor = new GlowstoneDropCommands(this);
 		getCommand("glowstonedrop").setExecutor(executor);
-
-		// Message
-		PluginDescriptionFile pdfFile = this.getDescription();
-		log.info(pdfFile.getName() + " " + pdfFile.getVersion() + " is enabled!");
 		
 		// Stats
 		try {
@@ -121,7 +108,7 @@ public class GlowstoneDrop extends JavaPlugin {
 	}
 
 	// Loads the localization
-	public void loadLocalization() {
+	private void loadLocalization() {
 		localization.options().header("The underscores are used for the different lines!");
 		localization.addDefault("permission_denied", "&4You don''t have the permission to do this!");
 		localization.addDefault("set", "&2Drop in the &4%world &2worlds changed to &4%value&2!");
@@ -147,11 +134,10 @@ public class GlowstoneDrop extends JavaPlugin {
 		localization.addDefault("help_12", "&eDrops &fcan be: dust, block");
 		localization.options().copyDefaults(true);
 		saveLocalization();
-
 	}
 
 	// Saves the localization
-	public void saveLocalization() {
+	private void saveLocalization() {
 		try {
 			localization.save(localizationFile);
 		}
@@ -182,12 +168,8 @@ public class GlowstoneDrop extends JavaPlugin {
 				.replaceAll("%version", pdfFile.getVersion())
 				.replaceAll("%world", world)
 				.replaceAll("%value", value);
-		if (player != null) {
-			player.sendMessage(message);
-		}
-		else if (sender != null) {
-			sender.sendMessage(message);
-		}
+		if (player != null)	player.sendMessage(message);
+		else if (sender != null) sender.sendMessage(message);
 	}
 
 	// If no config is found, copy the default one!
@@ -196,8 +178,8 @@ public class GlowstoneDrop extends JavaPlugin {
 			OutputStream out = new FileOutputStream(file);
 			byte[] buf = new byte[1024];
 			int len;
-			while ((len=in.read(buf)) > 0) {
-				out.write(buf,0,len);
+			while ((len = in.read(buf)) > 0) {
+				out.write(buf, 0, len);
 			}
 			out.close();
 			in.close();

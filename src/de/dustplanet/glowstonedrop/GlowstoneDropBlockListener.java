@@ -1,7 +1,6 @@
 package de.dustplanet.glowstonedrop;
 
 import java.util.Arrays;
-
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -11,7 +10,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.entity.Player;
 
 /**
- * GlowstoneDrop for CraftBukkit/Bukkit Handles the block stuff!
+ * GlowstoneDrop for CraftBukkit/Bukkit
+ * Handles the block stuff!
  * Refer to the forum thread:
  * http://bit.ly/oW6iR1
  * Refer to the dev.bukkit.org page:
@@ -22,40 +22,27 @@ import org.bukkit.entity.Player;
  */
 
 public class GlowstoneDropBlockListener implements Listener {
-	public GlowstoneDrop plugin;
+	private GlowstoneDrop plugin;
+	private boolean message = true;
+	private String[] worlds = {"normal", "nether", "end"};
 	public GlowstoneDropBlockListener(GlowstoneDrop instance) {
 		plugin = instance;
 	}
-	private boolean message = true;
-	private String[] worlds = {"normal", "nether", "end"};
 
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
 		String enviroment = event.getBlock().getWorld().getEnvironment().toString().toLowerCase();
 		// Check for the item in hand and if it's on the list
-		if (sameItem(player.getItemInHand().getTypeId()) == true
-				&& (event.getBlock().getTypeId() == 89)) {
+		if (sameItem(player.getItemInHand().getTypeId()) && (event.getBlock().getTypeId() == 89)) {
 			// Check for the config value permissions
-			if (plugin.config.getBoolean("configuration.permissions") == true) {
-				if (Arrays.asList(worlds).contains(enviroment)) {
-					// Block
-					if (plugin.config.getString("worlds." + enviroment).equalsIgnoreCase("block")) {
-						if (player.hasPermission("glowstonedrop.use." + enviroment)) {
-							if (player.getGameMode() != GameMode.CREATIVE) dropBlock(event);
-						} else {
-							message(player);
-						}
-					}
-				}
-			}
-			// Without permissions -> no messages
-			else if (plugin.config.getBoolean("configuration.permissions") == false) {
-				if (Arrays.asList(worlds).contains(enviroment)) {
-					// Block
-					if (plugin.config.getString("worlds." + enviroment).equalsIgnoreCase("block")) {
+			if (Arrays.asList(worlds).contains(enviroment)) {
+				// Block
+				if (plugin.config.getString("worlds." + enviroment).equalsIgnoreCase("block")) {
+					if (player.hasPermission("glowstonedrop.use." + enviroment) || !plugin.config.getBoolean("configuration.permissions")) {
 						if (player.getGameMode() != GameMode.CREATIVE) dropBlock(event);
-					}
+					} 
+					else message(player);
 				}
 			}
 		}
@@ -69,7 +56,7 @@ public class GlowstoneDropBlockListener implements Listener {
 
 	// Sends a message
 	private void message(Player player) {
-		if (plugin.config.getBoolean("configuration.messages") == true) {
+		if (plugin.config.getBoolean("configuration.messages")) {
 			String msg = plugin.localization.getString("permission_denied");
 			plugin.message(null, player, msg, null, null);
 		}
@@ -87,8 +74,8 @@ public class GlowstoneDropBlockListener implements Listener {
 			}
 			catch (Exception e) {
 				// Prevent spamming
-				if (message == true) {
-					plugin.log.warning("GlowstoneDrop couldn't load the items! Please check your config!");
+				if (message) {
+					plugin.log.warning("[GlowstoneDrop] Couldn't load the items! Please check your config! The item " + itemName + " is invalid.");
 					message = false;
 				}
 			}
