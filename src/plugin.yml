@@ -1,6 +1,6 @@
 name: GlowstoneDrop
 main: de.dustplanet.glowstonedrop.GlowstoneDrop
-version: 1.6.4
+version: 1.7
 author: xGhOsTkiLLeRx
 authors: [XxFuNxX]
 description: Get a glowstone block back!
@@ -20,40 +20,12 @@ permissions:
      glowstonedrop.enable.*: true
      glowstonedrop.disable.*: true
      glowstonedrop.help: true
-     glowstonedrop.set.*: true
+     glowstonedrop.set: true
   glowstonedrop.use.*:
     description: Gives access to all GlowstoneDrop uses
-    children:
-     glowstonedrop.use.nether: true
-     glowstonedrop.use.normal: true
-     glowstonedrop.use.end: true
-  glowstonedrop.use.normal:
-    description: Allows you to use GlowstoneDrop in normal worlds
     default: op
-  glowstonedrop.use.nether:
-    description: Allows you to use GlowstoneDrop in the nether
-    default: op
-  glowstonedrop.use.end:
-    description: Allows you to use GlowstoneDrop in the end
-    default: op
-  glowstonedrop.set.*:
+  glowstonedrop.set:
     description: Gives access to all GlowstoneDrop set commands
-    children:
-     glowstonedrop.set.normal: true
-     glowstonedrop.set.nether: true
-     glowstonedrop.set.end: true
-     glowstonedrop.set.all: true
-  glowstonedrop.set.normal:
-    description: Allows you to set the drop for normal
-    default: op
-  glowstonedrop.set.nether:
-    description: Allows you to set the drop for nether
-    default: op
-  glowstonedrop.set.end:
-    description: Allows you to set the drop for end
-    default: op
-  glowstonedrop.set.all:
-    description: Allows you to set the drop for all worlds
     default: op
   glowstonedrop.help:
     description: Allows you to see the help

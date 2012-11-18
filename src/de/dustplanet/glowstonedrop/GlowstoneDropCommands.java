@@ -13,13 +13,12 @@ import org.bukkit.command.CommandSender;
  * Refer to the dev.bukkit.org page: 
  * http://bit.ly/rcN2QB
  * 
- * @author  xGhOsTkiLLeRx
- * @thanks  to XxFuNxX for the original GlowstoneDrop plugin!
+ * @author xGhOsTkiLLeRx
+ * @thanks to XxFuNxX for the original GlowstoneDrop plugin!
  */
 
 public class GlowstoneDropCommands implements CommandExecutor {
 	private GlowstoneDrop plugin;
-	private String[] worlds = {"normal", "nether", "end"};
 	private String[] values = {"block", "dust"};
 	public GlowstoneDropCommands(GlowstoneDrop plugin) {
 		this.plugin = plugin;
@@ -53,8 +52,8 @@ public class GlowstoneDropCommands implements CommandExecutor {
 		// set
 		if (args.length > 2 && args[0].equalsIgnoreCase("set")) {
 			String world = args[1], value = args[2];
-			if (Arrays.asList(worlds).contains(args[1]) && Arrays.asList(values).contains(args[2])) {
-				if (sender.hasPermission("glowstonedrop.set.normal") || !plugin.config.getBoolean("configuration.permissions")) {
+			if (Arrays.asList(values).contains(args[2])) {
+				if (sender.hasPermission("glowstonedrop.set") || !plugin.config.getBoolean("configuration.permissions")) {
 					GlowstoneDropSet(sender, world, value);
 				}
 				else {
@@ -62,20 +61,6 @@ public class GlowstoneDropCommands implements CommandExecutor {
 					plugin.message(sender, null, message, null, null);
 				}
 				return true;
-			}
-			// all
-			if (args.length > 2 && args[1].equalsIgnoreCase("all")) {
-				// block
-				if (Arrays.asList(values).contains(args[2])) {
-					if (sender.hasPermission("glowstonedrop.set.all") || !plugin.config.getBoolean("configuration.permissions")) {
-						GlowstoneDropSetAll(sender, value);
-					}
-					else {
-						message = plugin.localization.getString("permission_denied");
-						plugin.message(sender, null, message, null, null);
-					}
-					return true;
-				}
 			}
 		}
 		// enable
@@ -117,7 +102,10 @@ public class GlowstoneDropCommands implements CommandExecutor {
 
 	// Set a value
 	private void GlowstoneDropSet(CommandSender sender, String world, String value) {
-		plugin.config.set("worlds." + world.toLowerCase(), value.toLowerCase());
+		world = world.toLowerCase();
+		if (value.equalsIgnoreCase("block") && !plugin.worldsBlock.contains(world)) plugin.worldsBlock.add(world);
+		else if (value.equalsIgnoreCase("dust")) plugin.worldsBlock.remove(world);
+		plugin.config.set("worldsBlock", plugin.worldsBlock);
 		plugin.saveConfig();
 		String message = plugin.localization.getString("set");
 		plugin.message(sender, null, message, value, world);
@@ -125,7 +113,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 
 	// See the help with /glowstonedrop help or /glowdrop help
 	private void GlowstoneDropHelp(CommandSender sender) {
-		for (int i = 1; i <= 12; i++) {
+		for (int i = 1; i <= 11; i++) {
 			String message = plugin.localization.getString("help_" + Integer.toString(i));
 			plugin.message(sender, null, message, null, null);
 		}
@@ -170,16 +158,5 @@ public class GlowstoneDropCommands implements CommandExecutor {
 			message = plugin.localization.getString("disable_messages");
 			plugin.message(sender, null, message, null, null);
 		}
-	}
-
-
-	// Sets the all drops to dust with /glowstonedrop set all dust or /glowdrop set all dust
-	private void GlowstoneDropSetAll(CommandSender sender, String value) {
-		plugin.config.set("worlds.normal", value.toLowerCase());
-		plugin.config.set("worlds.nether", value.toLowerCase());
-		plugin.config.set("worlds.end", value.toLowerCase());
-		plugin.saveConfig();
-		String message = plugin.localization.getString("set_all");
-		plugin.message(sender, null, message, value, null);
 	}
 }

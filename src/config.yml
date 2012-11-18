@@ -2,10 +2,6 @@
 configuration:
   permissions: true
   messages: true
-worlds:
-  normal: block
-  nether: dust
-  end: block
 items:
 - WOOD_PICKAXE
 - STONE_PICKAXE

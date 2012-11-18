@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.logging.Logger;
+
+import org.bukkit.World;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.*;
 import org.bukkit.entity.Player;
 
@@ -25,22 +28,22 @@ import de.dustplanet.glowstonedrop.Metrics.Graph;
  * http://bit.ly/oW6iR1
  * Refer to the dev.bukkit.org page: http://bit.ly/rcN2QB
  * 
- * @author  xGhOsTkiLLeRx
- * @thanks  to XxFuNxX for the original GlowstoneDrop plugin!
+ * @author xGhOsTkiLLeRx
+ * @thanks to XxFuNxX for the original GlowstoneDrop plugin!
  */
 
 public class GlowstoneDrop extends JavaPlugin {
-	public Logger log = Logger.getLogger("Minecraft");
 	private GlowstoneDropBlockListener blockListener;
 	public FileConfiguration config, localization;
 	private File configFile, localizationFile;
-	public List<String> itemList = new ArrayList<String>();
+	public List<String> itemList, worldsBlock = new ArrayList<String>();
 	private String[] items = {"WOOD_PICKAXE", "STONE_PICKAXE", "IRON_PICKAXE", "GOLD_PICKAXE", "DIAMOND_PICKAXE"};
 	private GlowstoneDropCommands executor;
 
 	// Shutdown
 	public void onDisable() {
 		itemList.clear();
+		worldsBlock.clear();
 	}
 
 	// Start
@@ -67,11 +70,11 @@ public class GlowstoneDrop extends JavaPlugin {
 		}
 		localization = YamlConfiguration.loadConfiguration(localizationFile);
 		loadLocalization();
-		
+
 		// Refer to GlowstoneDropCommands
 		executor = new GlowstoneDropCommands(this);
 		getCommand("glowstonedrop").setExecutor(executor);
-		
+
 		// Stats
 		try {
 			Metrics metrics = new Metrics(this);
@@ -90,7 +93,9 @@ public class GlowstoneDrop extends JavaPlugin {
 			}
 			metrics.start();
 		}
-		catch (IOException e) {}
+		catch (IOException e) {
+			getServer().getLogger().warning("[GlowstoneDrop] Failed start Metrics! Please report this! (I/O)");
+		}
 	}
 
 	// Loads the config at start
@@ -98,11 +103,15 @@ public class GlowstoneDrop extends JavaPlugin {
 		config.options().header("For help please refer to http://bit.ly/oW6iR1 or http://bit.ly/rcN2QB");
 		config.addDefault("configuration.permissions", true);
 		config.addDefault("configuration.messages", true);
-		config.addDefault("worlds.normal", "block");
-		config.addDefault("worlds.nether", "dust");
-		config.addDefault("worlds.end", "block");
 		config.addDefault("items", Arrays.asList(items));
 		itemList = config.getStringList("items");
+		List<World> worlds = getServer().getWorlds();
+		List<String> worldNames = new ArrayList<String>();
+		for (World w : worlds) {
+			worldNames.add(w.getName().toLowerCase());
+		}
+		config.addDefault("worldsBlock", worldNames);
+		worldsBlock = config.getStringList("worldsBlock");
 		config.options().copyDefaults(true);
 		saveConfig();
 	}
@@ -112,7 +121,6 @@ public class GlowstoneDrop extends JavaPlugin {
 		localization.options().header("The underscores are used for the different lines!");
 		localization.addDefault("permission_denied", "&4You don''t have the permission to do this!");
 		localization.addDefault("set", "&2Drop in the &4%world &2worlds changed to &4%value&2!");
-		localization.addDefault("set_all", "&2Drop for all worlds changed to &4%value&2!");
 		localization.addDefault("reload", "&2GlowstoneDrop &4%version &2reloaded!");
 		localization.addDefault("enable_messages", "&2GlowstoneDrop &4messages &2enabled!");
 		localization.addDefault("disable_messages", "&2GlowstoneDrop &4messages &2disabled!");
@@ -130,8 +138,7 @@ public class GlowstoneDrop extends JavaPlugin {
 		localization.addDefault("help_8", "To disable something use &4/glowstonedrop disable &e<value>");
 		localization.addDefault("help_9", "or &4/glowdrop disable &e<value>");
 		localization.addDefault("help_10", "&eValues &fcan be: permissions, messages");
-		localization.addDefault("help_11", "&eWorlds &fcan be: normal, end, nether (or all)");
-		localization.addDefault("help_12", "&eDrops &fcan be: dust, block");
+		localization.addDefault("help_11", "&eDrops &fcan be: dust, block");
 		localization.options().copyDefaults(true);
 		saveLocalization();
 	}
@@ -142,7 +149,7 @@ public class GlowstoneDrop extends JavaPlugin {
 			localization.save(localizationFile);
 		}
 		catch (IOException e) {
-			log.warning("GlowstoneDrop failed to save the localization! Please report this!");
+			getServer().getLogger().warning("[GlowstoneDrop] Failed to save the localization! Please report this! (I/O)");
 		}
 	}
 
@@ -155,11 +162,17 @@ public class GlowstoneDrop extends JavaPlugin {
 			saveLocalization();
 			itemList = config.getStringList("items");
 		}
-		catch (Exception e) {
-			e.printStackTrace();
+		catch (InvalidConfigurationException e) {
+			getServer().getLogger().warning("[GlowstoneDrop] Failed to load the configs again! Please report this! (InvalidConfiguration)");
+		}
+		catch (FileNotFoundException e) {
+			getServer().getLogger().warning("[GlowstoneDrop] Failed to load the configs again! Please report this! (FileNotFound)");
+		}
+		catch (IOException e) {
+			getServer().getLogger().warning("[GlowstoneDrop] Failed to load the configs again! Please report this! (I/O)");
 		}
 	}
-	
+
 	// Message the sender or player
 	public void message(CommandSender sender, Player player, String message, String value, String world) {
 		PluginDescriptionFile pdfFile = this.getDescription();
@@ -170,6 +183,7 @@ public class GlowstoneDrop extends JavaPlugin {
 				.replaceAll("%value", value);
 		if (player != null)	player.sendMessage(message);
 		else if (sender != null) sender.sendMessage(message);
+		else getServer().getLogger().warning("[GlowstoneDrop] Sender & player are null. Unable to send a message! Please report this!");
 	}
 
 	// If no config is found, copy the default one!

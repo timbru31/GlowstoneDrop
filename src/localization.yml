@@ -1,7 +1,6 @@
 # The underscores are used for the different lines!
 permission_denied: '&4You don''t have the permission to do this!'
 set: '&2Drop in the &4%world &2worlds changed to &4%value&2!'
-set_all: '&2Drop for all worlds changed to &4%value&2!'
 reload: '&2GlowstoneDrop &4%version &2reloaded!'
 enable_messages: '&2GlowstoneDrop &4messages &2enabled!'
 disable_messages: '&2GlowstoneDrop &4messages &2disabled!'
@@ -19,5 +18,4 @@ help_7: or &4/glowdrop enable &e<value>
 help_8: To disable something use &4/glowstonedrop disable &e<value>
 help_9: or &4/glowdrop disable &e<value>
 help_10: '&eValues &fcan be: permissions, messages'
-help_11: '&eWorlds &fcan be: normal, end, nether (or all)'
-help_12: '&eDrops &fcan be: dust, block'
+help_11: '&eDrops &fcan be: dust, block'

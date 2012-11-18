@@ -14,10 +14,6 @@ Standard config:
 configuration:
   permissions: true
   messages: true
-worlds:
-  normal: block
-  nether: dust
-  end: block
 items:
 - WOOD_PICKAXE
 - STONE_PICKAXE
@@ -29,14 +25,8 @@ Commands & Permissions (if no permissions system is detected, only OPs are able 
 Only bukkit's permissions system is supported! If a command is typed wrong, 
 it will return, that you should type /glowstonedrop help or /glowdrop help for more information!
 
-glowstonedrop.use.normal
-Description: Needed to use the plugin in the normal worlds! (Otherwise you get dust!)
-
-glowstonedrop.use.nether
-Description: Needed to use the plugin in the nether worlds! (Otherwise you get dust!)
-
-glowstonedrop.use.end
-Description: Needed to use the plugin in the skyland worlds! (Otherwise you get dust!)
+glowstonedrop.use.<worldName>
+Description: Needed to use the plugin in the specific world! (Otherwise you get dust!)
 
 /glowstonedrop reload
 /glowdrop reload
@@ -73,37 +63,7 @@ Description: Disables the messages
 Node: glowstonedrop.set.normal
 Description: Changes the drop in normal worlds to dust
 
-/glowstonedrop set normal block
-/glowdrop set normal block
-Node: glowstonedrop.set.normal
-Description: Changes the drop in normal worlds to blocks
-
-/glowstonedrop set nether dust
-/glowdrop set nether dust
-Node: glowstonedrop.set.nether
-Description: Changes the drop in nether worlds to dust
-
-/glowstonedrop set nether block
-/glowdrop set nether block
-Node: glowstonedrop.set.nether
-Description: Changes the drop in nether worlds to blocks
-
-/glowstonedrop set end dust
-/glowdrop set end dust
-Node: glowstonedrop.set.end
-Description: Changes the drop in end worlds to dust
-
-/glowstonedrop set end block
-/glowdrop set end block
-Node: glowstonedrop.set.end
-Description: Changes the drop in end worlds to blocks
-
-/glowstonedrop set all dust
-/glowdrop set all dust
-Node: glowstonedrop.set.all
-Description: Changes the drop in all worlds to dust
-
-/glowstonedrop set all block
-/glowdrop set all block
-Node: glowstonedrop.set.all
-Description: Changes the drop in all worlds to blocks
+/glowstonedrop set <world> <block|dust>
+/glowdrop set <world> <block|dust>
+Node: glowstonedrop.set
+Description: Changes the drop in world
