@@ -71,7 +71,7 @@ public class GlowstoneDropBlockListener implements Listener {
 			catch (IllegalArgumentException e) {
 				// Prevent spamming
 				if (message) {
-					plugin.getServer().getLogger().warning("[GlowstoneDrop] Couldn't load the items! Please check your config! The item " + itemName + " is invalid.");
+					plugin.getLogger().warning("Couldn't load the items! Please check your config! The item " + itemName + " is invalid.");
 					message = false;
 				}
 			}

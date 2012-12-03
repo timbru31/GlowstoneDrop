@@ -59,7 +59,7 @@ public class GlowstoneDrop extends JavaPlugin {
 			configFile.getParentFile().mkdirs();
 			copy(getResource("config.yml"), configFile);
 		}
-		config = this.getConfig();
+		config = getConfig();
 		loadConfig();
 
 		// Localization
@@ -94,7 +94,7 @@ public class GlowstoneDrop extends JavaPlugin {
 			metrics.start();
 		}
 		catch (IOException e) {
-			getServer().getLogger().warning("[GlowstoneDrop] Failed start Metrics! Please report this! (I/O)");
+			getLogger().warning("Failed start Metrics! Please report this! (I/O)");
 		}
 	}
 
@@ -149,7 +149,7 @@ public class GlowstoneDrop extends JavaPlugin {
 			localization.save(localizationFile);
 		}
 		catch (IOException e) {
-			getServer().getLogger().warning("[GlowstoneDrop] Failed to save the localization! Please report this! (I/O)");
+			getLogger().warning("Failed to save the localization! Please report this! (I/O)");
 		}
 	}
 
@@ -163,13 +163,13 @@ public class GlowstoneDrop extends JavaPlugin {
 			itemList = config.getStringList("items");
 		}
 		catch (InvalidConfigurationException e) {
-			getServer().getLogger().warning("[GlowstoneDrop] Failed to load the configs again! Please report this! (InvalidConfiguration)");
+			getLogger().warning("Failed to load the configs again! Please report this! (InvalidConfiguration)");
 		}
 		catch (FileNotFoundException e) {
-			getServer().getLogger().warning("[GlowstoneDrop] Failed to load the configs again! Please report this! (FileNotFound)");
+			getLogger().warning("Failed to load the configs again! Please report this! (FileNotFound)");
 		}
 		catch (IOException e) {
-			getServer().getLogger().warning("[GlowstoneDrop] Failed to load the configs again! Please report this! (I/O)");
+			getLogger().warning("Failed to load the configs again! Please report this! (I/O)");
 		}
 	}
 
@@ -183,7 +183,7 @@ public class GlowstoneDrop extends JavaPlugin {
 				.replaceAll("%value", value);
 		if (player != null)	player.sendMessage(message);
 		else if (sender != null) sender.sendMessage(message);
-		else getServer().getLogger().warning("[GlowstoneDrop] Sender & player are null. Unable to send a message! Please report this!");
+		else getLogger().warning("Sender & player are null. Unable to send a message! Please report this!");
 	}
 
 	// If no config is found, copy the default one!

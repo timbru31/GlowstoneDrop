@@ -20,8 +20,9 @@ import org.bukkit.command.CommandSender;
 public class GlowstoneDropCommands implements CommandExecutor {
 	private GlowstoneDrop plugin;
 	private String[] values = {"block", "dust"};
-	public GlowstoneDropCommands(GlowstoneDrop plugin) {
-		this.plugin = plugin;
+	
+	public GlowstoneDropCommands(GlowstoneDrop instance) {
+		plugin = instance;
 	}
 
 	// Commands; always check for permissions!
