@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.dustplanet</groupId>
 	<artifactId>GlowstoneDrop</artifactId>
-	<version>1.7-SNAPSHOT</version>
+	<version>1.7.1-SNAPSHOT</version>
 	<name>GlowstoneDrop</name>
 	<description>Mine a glowstone block and get a block back</description>
 	<url>http://dev.bukkit.org/server-mods/glowstone-drop/</url>

@@ -9,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import org.bukkit.World;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -18,8 +17,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.*;
 import org.bukkit.entity.Player;
-
-import de.dustplanet.glowstonedrop.Metrics.Graph;
+import de.dustplanet.glowstonedrop.BukkitMetrics.Graph;
 
 /**
  * GlowstoneDrop for CraftBukkit/Bukkit
@@ -77,13 +75,13 @@ public class GlowstoneDrop extends JavaPlugin {
 
 		// Stats
 		try {
-			Metrics metrics = new Metrics(this);
+			BukkitMetrics metrics = new BukkitMetrics(this);
 			// Construct a graph, which can be immediately used and considered as valid
 			Graph graph = metrics.createGraph("Percentage of affected items");
 			// Custom plotter for each item
 			for (int i = 0; i < itemList.size(); i++) {
 				final String itemName = itemList.get(i);
-				graph.addPlotter(new Metrics.Plotter(itemName) {
+				graph.addPlotter(new BukkitMetrics.Plotter(itemName) {
 					@Override
 					public int getValue() {
 						return 1;
