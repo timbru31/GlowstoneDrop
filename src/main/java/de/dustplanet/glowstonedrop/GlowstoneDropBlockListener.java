@@ -23,7 +23,7 @@ import org.bukkit.entity.Player;
 public class GlowstoneDropBlockListener implements Listener {
 	private GlowstoneDrop plugin;
 	private boolean message = true;
-	
+
 	public GlowstoneDropBlockListener(GlowstoneDrop instance) {
 		plugin = instance;
 	}
@@ -60,21 +60,20 @@ public class GlowstoneDropBlockListener implements Listener {
 
 	// Is the item in the hand on the list?
 	private boolean sameItem(int item) {
-		for (int i = 0; i < plugin.itemList.size(); i++) {
-			String itemName = plugin.itemList.get(i);
-			try {
-				Material material = Material.valueOf(itemName);
-				if (material.getId() == item) {
-					return true;
-				}
-			}
-			catch (IllegalArgumentException e) {
+		for (String itemName : plugin.itemList) {
+			Material mat = Material.matchMaterial(itemName);
+			// Invalid item
+			if (mat == null) {
 				// Prevent spamming
 				if (message) {
 					plugin.getLogger().warning("Couldn't load the items! Please check your config! The item " + itemName + " is invalid.");
 					message = false;
 				}
+				// Go on
+				continue;
 			}
+			// Get ID & compare
+			if (mat.getId() == item) return true;
 		}
 		return false;
 	}
