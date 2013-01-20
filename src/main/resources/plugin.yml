@@ -1,6 +1,6 @@
 name: GlowstoneDrop
 main: de.dustplanet.glowstonedrop.GlowstoneDrop
-version: ${project.version}
+version: ${project.version}-b${BUILD_NUMBER}
 author: xGhOsTkiLLeRx
 authors: [XxFuNxX]
 description: Get a glowstone block back!
