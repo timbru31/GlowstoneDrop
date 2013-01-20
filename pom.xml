@@ -52,7 +52,7 @@
 									<include>org.mcstats.bukkit:metrics</include>
 								</includes>
 							</artifactSet>
-							<finalName>GlownsteDrop</finalName>
+							<finalName>GlowstoneDrop</finalName>
 							<relocations>
 								<relocation>
 									<pattern>org.mcstats</pattern>
