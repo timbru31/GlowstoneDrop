@@ -20,16 +20,17 @@ import org.bukkit.command.CommandSender;
 public class GlowstoneDropCommands implements CommandExecutor {
 	private GlowstoneDrop plugin;
 	private String[] values = {"block", "dust"};
-	
+
 	public GlowstoneDropCommands(GlowstoneDrop instance) {
 		plugin = instance;
 	}
 
-	// Commands; always check for permissions!
+	// Commands, always check for permissions!
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		// reload
 		String message = "";
-		if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
+		if (args.length == 0) return false;
+		if (args[0].equalsIgnoreCase("reload")) {
 			if (sender.hasPermission("glowstonedrop.reload") || !plugin.config.getBoolean("configuration.permissions")) {
 				GlowstoneDropReload(sender);
 			}
@@ -40,7 +41,7 @@ public class GlowstoneDropCommands implements CommandExecutor {
 			return true;
 		}
 		// help
-		if (args.length > 0 && args[0].equalsIgnoreCase("help")) {
+		else if (args[0].equalsIgnoreCase("help")) {
 			if (sender.hasPermission("glowstonedrop.help") || !plugin.config.getBoolean("configuration.permissions")) {
 				GlowstoneDropHelp(sender);
 			}
@@ -51,7 +52,9 @@ public class GlowstoneDropCommands implements CommandExecutor {
 			return true;
 		}
 		// set
-		if (args.length > 2 && args[0].equalsIgnoreCase("set")) {
+		else if (args[0].equalsIgnoreCase("set")) {
+			// Usage set <world> <drop>
+			if (args.length < 3) return false;
 			String world = args[1], value = args[2];
 			if (Arrays.asList(values).contains(args[2])) {
 				if (sender.hasPermission("glowstonedrop.set") || !plugin.config.getBoolean("configuration.permissions")) {
@@ -64,38 +67,36 @@ public class GlowstoneDropCommands implements CommandExecutor {
 				return true;
 			}
 		}
+		// Usage: enable/disable perm/msg
+		if (args.length < 2) return false;
 		// enable
-		if (args.length > 0 && args[0].equalsIgnoreCase("enable"))   {
-			if ((args[1].equalsIgnoreCase("messages")) || args[1].equalsIgnoreCase("permissions")) {
-				// permissions
-				String value = args[1];
-				if (args.length > 1 && args[1].equalsIgnoreCase("permissions")) {
-					if (sender.hasPermission("glowstonedrop.enable." + args[0]) || !plugin.config.getBoolean("configuration.permissions")) {
-						GlowstoneDropEnable(sender, value);
-					}
-					else {
-						message = plugin.localization.getString("permission_denied");
-						plugin.message(sender, null, message, null, null);
-					}
-					return true;
+		if (args[0].equalsIgnoreCase("enable") && (args[1].equalsIgnoreCase("messages") || args[1].equalsIgnoreCase("permissions"))) {
+			// permissions
+			String value = args[1];
+			if (args.length > 1 && args[1].equalsIgnoreCase("permissions")) {
+				if (sender.hasPermission("glowstonedrop.enable." + args[0]) || !plugin.config.getBoolean("configuration.permissions")) {
+					GlowstoneDropEnable(sender, value);
 				}
+				else {
+					message = plugin.localization.getString("permission_denied");
+					plugin.message(sender, null, message, null, null);
+				}
+				return true;
 			}
 		}
 		// disable
-		if (args.length > 0 && args[0].equalsIgnoreCase("disable"))   {
-			if ((args[1].equalsIgnoreCase("messages")) || args[1].equalsIgnoreCase("permissions")) {
-				// permissions
-				String value = args[1];
-				if (args.length > 1 && args[1].equalsIgnoreCase("permissions")) {
-					if (sender.hasPermission("glowstonedrop.disable." + args[0]) || !plugin.config.getBoolean("configuration.permissions")) {
-						GlowstoneDropDisable(sender, value);
-					}
-					else {
-						message = plugin.localization.getString("permission_denied");
-						plugin.message(sender, null, message, null, null);
-					}
-					return true;
+		else if (args[0].equalsIgnoreCase("disable") && (args[1].equalsIgnoreCase("messages") || args[1].equalsIgnoreCase("permissions"))) {
+			// permissions
+			String value = args[1];
+			if (args.length > 1 && args[1].equalsIgnoreCase("permissions")) {
+				if (sender.hasPermission("glowstonedrop.disable." + args[0]) || !plugin.config.getBoolean("configuration.permissions")) {
+					GlowstoneDropDisable(sender, value);
 				}
+				else {
+					message = plugin.localization.getString("permission_denied");
+					plugin.message(sender, null, message, null, null);
+				}
+				return true;
 			}
 		}
 		return false;
