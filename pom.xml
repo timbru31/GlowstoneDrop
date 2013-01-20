@@ -7,9 +7,13 @@
 	<name>GlowstoneDrop</name>
 	<description>Mine a glowstone block and get a block back</description>
 	<url>http://dev.bukkit.org/server-mods/glowstone-drop/</url>
+
+	<!-- Encode in UTF-8 -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<!-- Repositories -->
 	<repositories>
 		<repository>
 			<id>bukkit-repo</id>
@@ -20,7 +24,25 @@
 			<url>http://repo.mcstats.org/content/repositories/public</url>
 		</repository>
 	</repositories>
+
+	<!-- Dependencies -->
+	<dependencies>
+		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>bukkit</artifactId>
+			<version>1.4.7-R0.2-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mcstats.bukkit</groupId>
+			<artifactId>metrics</artifactId>
+			<version>R6</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 	<build>
+		<!-- Compile for 1.6 and clean before -->
 		<defaultGoal>clean compile package</defaultGoal>
 		<plugins>
 			<plugin>
@@ -35,7 +57,7 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-			<!-- Shade Plugin -->
+			<!-- Shade Plugin to include Metrics -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -52,6 +74,7 @@
 									<include>org.mcstats.bukkit:metrics</include>
 								</includes>
 							</artifactSet>
+							<!-- Set the final name -->
 							<finalName>GlowstoneDrop</finalName>
 							<relocations>
 								<relocation>
@@ -64,6 +87,8 @@
 				</executions>
 			</plugin>
 		</plugins>
+
+		<!-- Include the .yml files -->
 		<resources>
 			<resource>
 				<targetPath>.</targetPath>
@@ -77,27 +102,16 @@
 			</resource>
 		</resources>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>bukkit</artifactId>
-			<version>1.4.7-R0.2-SNAPSHOT</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mcstats.bukkit</groupId>
-			<artifactId>metrics</artifactId>
-			<version>R6</version>
-			<scope>compile</scope>
-		</dependency>
-	</dependencies>
+
+	<!-- GitHub information -->
 	<scm>
 		<url>https://github.com/xGhOsTkiLLeRx/GlowstoneDrop</url>
 		<connection>scm:git:git://github.com/xGhOsTkiLLeRx/GlowstoneDrop.git</connection>
 		<tag>master</tag>
 		<developerConnection>scm:git:git@github.com:xGhOsTkiLLeRx/GlowstoneDrop.git</developerConnection>
 	</scm>
+
+	<!-- Jenkins information -->
 	<ciManagement>
 		<url>http://ci.dustplanet.de/job/GlowstoneDrop</url>
 		<system>jenkins</system>
