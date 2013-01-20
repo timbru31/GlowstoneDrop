@@ -22,7 +22,6 @@
 	</repositories>
 	<build>
 		<defaultGoal>clean compile package</defaultGoal>
-		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -40,7 +39,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.0</version>
+				<version>1.6</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -50,9 +49,10 @@
 						<configuration>
 							<artifactSet>
 								<includes>
-									<include>org.mcstats:metrics</include>
+									<include>org.mcstats.bukkit:metrics</include>
 								</includes>
 							</artifactSet>
+							<finalName>GlownsteDrop</finalName>
 							<relocations>
 								<relocation>
 									<pattern>org.mcstats</pattern>
