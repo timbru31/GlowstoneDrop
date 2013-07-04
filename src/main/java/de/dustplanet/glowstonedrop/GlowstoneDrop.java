@@ -99,7 +99,6 @@ public class GlowstoneDrop extends JavaPlugin {
 			return 1;
 		    }
 		});
-
 	    }
 	    metrics.start();
 	} catch (IOException e) {
